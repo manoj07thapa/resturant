@@ -3,7 +3,7 @@ import { Fragment, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0';
-import Image from 'next/image'
+import Image from 'next/image';
 
 export default function AccountSwitcherMenu() {
 	const router = useRouter();
@@ -119,5 +119,3 @@ function DuplicateActiveIcon(props: any) {
 		</svg>
 	);
 }
-
-

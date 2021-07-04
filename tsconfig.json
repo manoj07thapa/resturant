@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "components/header/UserMenu.js"  ],
   "exclude": [
     "node_modules"
   ]

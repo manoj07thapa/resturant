@@ -26,4 +26,4 @@ export default withPageAuthRequired(function Dashboard() {
 			</div>
 		</div>
 	);
-})
+});

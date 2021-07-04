@@ -1,8 +1,9 @@
 import Product from '../models/Product';
 import { getValueNumber } from '../utils/getValueNumber';
 import { getValueString } from '../utils/getValueString';
+import { ParsedUrlQuery } from 'querystring';
 
-export async function getPaginatedProducts(query) {
+export async function getPaginatedProducts(query: ParsedUrlQuery) {
 	const category = getValueString(query.category);
 	const search = getValueString(query.search);
 	const title = getValueString(query.title);
