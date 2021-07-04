@@ -20,7 +20,13 @@ export default function AccountSwitcherMenu() {
 					<Fragment>
 						<div>
 							<Menu.Button className="focus:outline-none">
-								<img className="h-8 w-8 rounded-full object-cover fo" src={user.picture} alt="" />
+								<Image
+									className="h-8 w-8 rounded-full object-cover fo"
+									src={user.picture}
+									alt=""
+									width={30}
+									height={30}
+								/>
 							</Menu.Button>
 						</div>
 						<Transition
