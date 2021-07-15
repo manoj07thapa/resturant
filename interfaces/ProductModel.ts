@@ -1,8 +1,8 @@
-export interface DishModel {
+export interface ProductModel {
 	_id: string;
 	title: string;
 	category: string;
-	price: number;
+	price: string;
 	description: string;
 	files?: string[];
 	rating?: number;

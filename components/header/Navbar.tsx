@@ -30,6 +30,13 @@ export default function Navbar() {
 						<Search />
 					</div>
 					<div>
+						<Link href="/products">
+							<a className="flex items-center text-sm font-medium  leading-5  text-gray-500 hover:text-gray-800  transition ease-in-out duration-200">
+								Products
+							</a>
+						</Link>
+					</div>
+					<div>
 						{user ? (
 							<div className="flex items-center space-x-7">
 								<div>
@@ -53,13 +60,7 @@ export default function Navbar() {
 										</a>
 									</Link>
 								</div>
-								<div>
-									<Link href="/products">
-										<a className="flex items-center text-sm font-medium  leading-5  text-gray-500 hover:text-gray-800  transition ease-in-out duration-200">
-											Products
-										</a>
-									</Link>
-								</div>
+
 								<div>
 									<Link href="/favourites">
 										<a className=" text-sm font-medium  leading-5  text-gray-500 hover:text-gray-800  transition ease-in-out duration-200">

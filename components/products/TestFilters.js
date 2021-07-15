@@ -22,8 +22,6 @@ const ValueChangeListener = () => {
 };
 
 const submitMyForm = (values) => {
-	console.log('VALUESTESTFILTERS', values);
-
 	router.push(
 		{
 			pathname: '/products',
@@ -36,7 +34,6 @@ const submitMyForm = (values) => {
 
 const TestFilters = ({ categories }) => {
 	const { query } = useRouter();
-	console.log('QUERY', query);
 
 	const initialValues = {
 		category: query.category

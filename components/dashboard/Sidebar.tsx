@@ -33,14 +33,24 @@ export default function Sidebar() {
 											</svg>
 										</Disclosure.Button>
 										<Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
-											<Link
-												href={{
-													pathname: '/dashboard',
-													query: { query: 'index' }
-												}}
-											>
-												<a>Dishe</a>
-											</Link>
+											<div className="flex flex-col space-y-3">
+												<Link
+													href={{
+														pathname: '/dashboard',
+														query: { query: 'create-product' }
+													}}
+												>
+													<a>Dishe</a>
+												</Link>
+												<Link
+													href={{
+														pathname: '/dashboard',
+														query: { query: 'create-resource' }
+													}}
+												>
+													<a>Resource</a>
+												</Link>
+											</div>
 										</Disclosure.Panel>
 									</Fragment>
 								)}

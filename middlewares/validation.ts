@@ -7,7 +7,7 @@ export const productSchema = object({
 	description: string().required(),
 	files: array(
 		object({
-			url: string().required().url()
+			url: string().required()
 		})
 	)
 });

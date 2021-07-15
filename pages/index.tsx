@@ -1,8 +1,12 @@
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
+import dbConnect from '../utils/dbConnect';
+import Resource from '../models/Resource'
+import HeroContent from '../components/home/HeroContent';
 
-export default function Home() {
+export default function Home({ heroContent }: any) {
+	console.log(heroContent);
+
 	return (
 		<div>
 			<Head>
@@ -12,13 +16,23 @@ export default function Home() {
 			</Head>
 
 			<div>
-				<Link href="/dashboard">
-					<a>Dashboard</a>
-				</Link>
-				<Link href="/api/auth/logout">
-					<a>Logout</a>
-				</Link>
+				<HeroContent heroContent={heroContent} />
+
 			</div>
 		</div>
 	);
+}
+
+export const getStaticProps: GetStaticProps = async (ctx) => {
+	await dbConnect();
+	const res = Resource.find({ category: 'hero' })
+	const [heroRes] = await Promise.all([res]);
+	const heroContent = JSON.parse(JSON.stringify(heroRes));
+
+	return {
+		props: {
+			heroContent
+		}
+	}
+
 }

@@ -12,11 +12,13 @@ import { useRouter } from 'next/router';
 import Pagination from '../components/products/Pagination';
 import Head from 'next/head';
 import { CategoryModel } from "../interfaces/Category";
-import { DishModel } from "../interfaces/Dish";
+import { ProductModel } from "../interfaces/ProductModel";
 import { GetServerSideProps } from 'next';
+import { DotLoader } from "react-spinners";
+
 
 interface ProductProps {
-	products?: DishModel[] | undefined;
+	products?: ProductModel[] | undefined;
 	categories: CategoryModel[];
 	totalPages?: number | undefined;
 }
@@ -30,6 +32,12 @@ export default function Products({ products, categories, totalPages }: ProductPr
 		dedupingInterval: 60000,
 		initialData: deepEqual(query, serverQuery) ? { products, totalPages } : undefined
 	});
+
+	if (!data || !products) {
+		return <div className="flex">
+			<DotLoader />
+		</div>
+	}
 
 	return (
 		<Fragment>

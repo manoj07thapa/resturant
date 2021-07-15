@@ -1,12 +1,9 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
-import { array, object, string, number } from 'yup';
 import axios from 'axios';
 import MultipleFileUploadField from '../upload/MultipleFileUploadFields';
-import { BounceLoader, BarLoader, ClimbingBoxLoader, CircleLoader } from 'react-spinners';
 import { productSchema } from '../../middlewares/validation';
-import { DishModel } from "../../interfaces/Dish";
-import { withPageAuthRequired } from '@auth0/nextjs-auth0';
+import { ProductModel } from "../../interfaces/ProductModel";
 
 const initialValues = {
 	category: '',
@@ -28,11 +25,11 @@ const categories = [
 	'mexican'
 ];
 
-export default withPageAuthRequired(function CreateProduct() {
+export default function CreateProduct() {
 	const handleSubmit = async (values: any, actions: { resetForm: () => void; setErrors: (arg0: any) => void; }) => {
 		try {
 
-			const res = await axios.post('/api/products/create', values);
+			const res = await axios.post('/api/products', { values });
 			alert(res.data.message);
 			if (res.status === 201) {
 				actions.resetForm();
@@ -56,7 +53,7 @@ export default withPageAuthRequired(function CreateProduct() {
 					onSubmit={handleSubmit}
 					validateOnBlur={false}
 				>
-					{({ values, errors, isSubmitting, isValid }) => (
+					{({ values, errors, isSubmitting }) => (
 						<Form>
 							<div className="w-full">
 								<label htmlFor="category" className="block text-md text-gray-400">
@@ -109,4 +106,4 @@ export default withPageAuthRequired(function CreateProduct() {
 			</div>
 		</div >
 	);
-})
+}

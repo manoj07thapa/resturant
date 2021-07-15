@@ -5,7 +5,8 @@ import { BarLoader } from 'react-spinners';
 import { useField } from 'formik';
 import UploadError from './UploadError';
 
-export default function MultipleFileUploadField({ name }) {
+export default function MultipleFileUploadFields({ name }) {
+	console.log('FILENAME', name);
 	const [ files, setFiles ] = useState([]);
 
 	const [ _, __, helpers ] = useField(name);

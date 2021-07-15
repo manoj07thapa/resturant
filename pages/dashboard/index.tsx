@@ -1,16 +1,13 @@
 import Sidebar from '../../components/dashboard/Sidebar';
 import CreateProduct from '../../components/dashboard/CreateProduct';
+import CreateResource from '../../components/dashboard/CreateResource';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
-export default withPageAuthRequired(function Dashboard() {
+export default withPageAuthRequired(function Dashboard({ }) {
 	const { query } = useRouter();
 
-	const { user, error, isLoading } = useUser();
-
-	if (isLoading) return <div>Loading...</div>;
-	if (error) return <div>{error.message}</div>;
 
 	return (
 		<div>
@@ -21,8 +18,13 @@ export default withPageAuthRequired(function Dashboard() {
 			</Head>
 			<div className="flex">
 				<Sidebar />
+				<main>
 
-				{query.query === 'index' && <CreateProduct />}
+					{query.query === 'create-product' && <CreateProduct />}
+					{query.query === 'create-resource' && <CreateResource />}
+
+				</main>
+
 			</div>
 		</div>
 	);
