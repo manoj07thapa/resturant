@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import axios from 'axios';
 import MultipleFileUploadField from '../upload/MultipleFileUploadFields';
-import { productSchema } from '../../middlewares/validation';
+import { productSchema } from '../../middlewares/productSchema';
 import { ProductModel } from "../../interfaces/ProductModel";
 
 const initialValues = {

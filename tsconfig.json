@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "pages/dashboard/index.js", "components/header/UserMenu.js", "pages/cart.js", "models/User.js", "models/Product.js", "models/Cart.js", "components/dashboard/CreateResource.js"  ],
+, "pages/dashboard/index.js", "components/header/UserMenu.js", "pages/cart.js", "models/User.js", "models/Product.js", "models/Cart.js", "components/dashboard/CreateResource.js", "components/home/HeroContent.js", "components/header/Header.js", "components/header/MobileHeader.js", "components/header/Search.js", "components/header/DesktopHeader.js", "pages/index.js", "pages/products.js", "components/products/Filters.js", "components/products/Pagination.js", "pages/[category]/[title]/[id].js"  ],
   "exclude": [
     "node_modules"
   ]

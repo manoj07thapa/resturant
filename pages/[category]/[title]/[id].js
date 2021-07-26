@@ -3,58 +3,61 @@ import Product from '../../../models/Product';
 import dbConnect from '../../../utils/dbConnect';
 import { useUser } from '@auth0/nextjs-auth0';
 import Link from 'next/link';
-import { GetStaticProps, GetStaticPaths } from 'next'
-import axios from 'axios'
-import { ProductModel } from "../../../interfaces/ProductModel";
+import { GetStaticProps, GetStaticPaths } from 'next';
+import axios from 'axios';
+import { ProductModel } from '../../../interfaces/ProductModel';
 import Head from 'next/head';
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 import { DotLoader } from 'react-spinners';
-import CartConfirmationModal from '../../../components/cart/CartConfirmationModal';
+import SlideoverCartPanel from '../../../components/cart/SlideoverCartPanel';
+import { mutate } from 'swr';
+import ImageDisplay from '../../../components/product/ImageDisplay';
+import ProductInfo from '../../../components/product/ProductInfo';
 
-interface ProductProps {
-	product?: ProductModel
-}
-
-
-export default function SingleProduct({ product }: ProductProps) {
+export default function SingleProduct({ product }) {
+	console.log(product);
 	const { user, error, isLoading } = useUser();
-	const [quantity, setQuantity] = useState(1);
-	const router = useRouter()
+	const [ quantity, setQuantity ] = useState(1);
+	const [ cartItems, setCartItems ] = useState([]);
+	const router = useRouter();
 
 	const values = {
-		quantity, product
-	}
+		quantity,
+		product
+	};
 
 	const addToCart = async () => {
 		try {
 			const res = await axios.put(`/api/cart`, values);
-
+			setCartItems(res.data.newCart.products);
 		} catch (error) {
 			console.log(error);
-
 		}
 	};
 
-
 	if (!product) {
-		return (<p>Product doesnot exist</p>)
+		return <p>Product doesnot exist</p>;
 	}
 
 	if (router.isFallback) {
-		<div className="flex"><DotLoader /></div>
+		<div className="flex">
+			<DotLoader />
+		</div>;
 	}
 
 	return (
 		<Fragment>
 			<Head>
-				<title>{product.category} | {product.title}</title>
+				<title>
+					{product.category} | {product.title}
+				</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<pre>{JSON.stringify({ product }, null, 4)}</pre>
-			<select
-				defaultValue={1}
-				onChange={(e) => setQuantity(parseInt(e.target.value))}
-			>
+			<div className="px-3 mt-9 md:px-12 grid grid-cols-1  lg:grid-cols-3 gap-y-5 lg:gap-x-9 ">
+				<ImageDisplay images={product.files} />
+				<ProductInfo product={product} />
+			</div>
+			<select defaultValue={1} onChange={(e) => setQuantity(parseInt(e.target.value))}>
 				<option value={1}>1</option>
 				<option value={2}>2</option>
 				<option value={3}>3</option>
@@ -63,9 +66,7 @@ export default function SingleProduct({ product }: ProductProps) {
 			</select>
 			<div>
 				{user ? (
-					<div>
-						<CartConfirmationModal addToCart={addToCart} recentlyAddedItem={product} />
-					</div>
+					<SlideoverCartPanel addToCart={addToCart} cartItems={cartItems} />
 				) : (
 					<button className="px-2 py-3 bg-yellow-500">
 						<Link href="/api/auth/login">
@@ -74,17 +75,15 @@ export default function SingleProduct({ product }: ProductProps) {
 					</button>
 				)}
 			</div>
-
 		</Fragment>
 	);
 }
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
-
+export const getStaticProps = async (ctx) => {
 	await dbConnect();
-	const id = ctx.params?.id;
-	const category = ctx.params?.category;
-	const title = ctx.params?.title;
+	const id = ctx.params.id;
+	const category = ctx.params.category;
+	const title = ctx.params.title;
 
 	const productPromise = Product.findById(id).lean();
 
@@ -92,22 +91,23 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 	const resPromise = Product.find({ category, title }).limit(10);
 
 	try {
-		const [product, res] = await Promise.all([productPromise, resPromise]);
+		const [ product, res ] = await Promise.all([ productPromise, resPromise ]);
 		product._id = product._id.toString();
 		const suggestedProducts = JSON.parse(JSON.stringify(res));
 
 		return {
 			props: {
-				product: product || null, suggested: suggestedProducts || null
+				product: product || null,
+				suggested: suggestedProducts || null
 			},
 			revalidate: 3
 		};
 	} catch (error) {
 		return { props: { err: 'No product' } };
 	}
-}
+};
 
-export const getStaticPaths: GetStaticPaths<{ id: string, category: string, title: string }> = async () => {
+export const getStaticPaths = async () => {
 	await dbConnect();
 	try {
 		const products = await Product.find({}).limit(5);

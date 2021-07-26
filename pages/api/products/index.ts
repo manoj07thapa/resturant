@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '../../../utils/dbConnect';
 import Product from '../../../models/Product';
-import { productSchema } from '../../../middlewares/validation';
+import { productSchema } from '../../../middlewares/productSchema';
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { validate } from '../../../middlewares/validate';
 import { getPaginatedProducts } from '../../../dbQuery/getPaginatedProducts';
@@ -34,12 +34,13 @@ const getProducts = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 const createProduct = async (req: NextApiRequest, res: NextApiResponse) => {
-	console.log(req.body.values);
-
 	const { category, title, price, description, files } = req.body.values;
-
-	await new Product({ category, title, price, description, files }).save();
-	res.status(201).json({ message: 'Product created' });
+	try {
+		await new Product({ category, title, price, description, files }).save();
+		res.status(201).json({ message: 'Product created' });
+	} catch (error) {
+		res.json({ err: 'Something went wrong' });
+	}
 };
 
 const editProduct = async (req: NextApiRequest, res: NextApiResponse) => {};

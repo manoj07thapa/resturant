@@ -7,7 +7,6 @@ import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 export default withApiAuthRequired(async function khalti(req: NextApiRequest, res: NextApiResponse) {
 	await dbConnect();
 	const { payload } = req.body;
-	console.log('PAYLOAD', payload);
 
 	const data = {
 		token: payload.token,
@@ -20,7 +19,6 @@ export default withApiAuthRequired(async function khalti(req: NextApiRequest, re
 
 	try {
 		const response = await axios.post('https://khalti.com/api/v2/payment/verify/', data, config);
-		console.log('KHALTIPAYMENTRES', response);
 		res.status(200).json({ success: true, message: 'Payment successful' });
 	} catch (error) {
 		res.status(200).json({ success: false, message: 'Payment Unsuccessful' });

@@ -20,12 +20,13 @@ export default withApiAuthRequired(async function cart(req: NextApiRequest, res:
 });
 
 const addProduct = async (req: NextApiRequest, res: NextApiResponse) => {
-	const { user } = getSession(req, res);
+	const session = getSession(req, res);
+	const user =  session?.user
 
 	const { quantity, product } = req.body;
 	const productId = product._id;
 
-	const cart = await Cart.findOne({ user: user.email });
+	const cart = await Cart.findOne({ user: user?.email });
 
 	try {
 		if (quantity < 1 || quantity > 5) {
@@ -35,7 +36,7 @@ const addProduct = async (req: NextApiRequest, res: NextApiResponse) => {
 		if (!cart) {
 			const newProduct = { quantity, product: productId };
 
-			return await new Cart({ user: user.email, products: newProduct }).save();
+			return await new Cart({ user: user?.email, products: newProduct }).save();
 		}
 
 		/**checking if the product id from client exist in product array of cart colection */
@@ -57,7 +58,7 @@ const addProduct = async (req: NextApiRequest, res: NextApiResponse) => {
 			);
 		}
 
-		const newCart = await Cart.findOne({ user: user.email });
+		const newCart = await Cart.findOne({ user: user?.email }).populate('products.product', Product);
 		res.status(200).json({ success: true, message: 'product added to cart', newCart });
 	} catch (error) {
 		console.log('CartError', error);
@@ -66,12 +67,13 @@ const addProduct = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 const removeProduct = async (req: NextApiRequest, res: NextApiResponse) => {
-	const { user } = getSession(req, res);
+	const session = getSession(req, res);
+	const user =  session?.user
 
 	const { productId } = req.body;
 	try {
 		const cart = await Cart.findOneAndUpdate(
-			{ user: user.email },
+			{ user: user?.email },
 			{ $pull: { products: { product: productId } } },
 			{ useFindAndModify: false }
 		).populate('products.product', Product);
@@ -83,10 +85,10 @@ const removeProduct = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 const getCartByUser = async (req: NextApiRequest, res: NextApiResponse) => {
-	const { user } = getSession(req, res);
-
+	const session = getSession(req, res);
+	const user =  session?.user
 	try {
-		const cart = await Cart.findOne({ user: user.email }).populate('products.product', Product);
+		const cart = await Cart.findOne({ user: user?.email }).populate('products.product', Product).sort({ createdAt: -1 });
 
 		res.status(200).json({ success: true, cartProducts: cart.products });
 	} catch (error) {

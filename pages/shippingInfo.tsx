@@ -6,10 +6,6 @@ import { GetShipInfo } from "../dbQuery/getShipInfo";
 import router from 'next/router';
 import { DotLoader } from 'react-spinners';
 
-
-
-
-
 export default withPageAuthRequired(function ShippingInfo() {
     return (
         <>

@@ -14,13 +14,13 @@ export default withApiAuthRequired(async function checkedCartItems(req: NextApiR
 });
 
 const editCart = async (req: NextApiRequest, res: NextApiResponse) => {
-	const { user } = getSession(req, res);
-
+	const session = getSession(req, res);
+	const user =  session?.user
 	const { checkedItem } = req.body;
 
 	try {
 		const resp = await Cart.findOneAndUpdate(
-			{ user: user.email, 'products._id': checkedItem },
+			{ user: user?.email, 'products._id': checkedItem },
 			{ $inc: { 'products.$.isChecked': 1 } },
 			{ useFindAndModify: false }
 		).populate('products.product', Product);

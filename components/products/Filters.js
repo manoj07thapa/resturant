@@ -1,13 +1,8 @@
 import { useState } from 'react';
-import { CategoryModel } from "../../interfaces/Category";
+import { CategoryModel } from '../../interfaces/Category';
 
-interface categoryProps {
-	categories: CategoryModel[]
-}
-
-export default function Filters({ categories }: categoryProps) {
-	const [isOpen, setIsOpen] = useState(true);
-
+export default function Filters({ categories }) {
+	const [ isOpen, setIsOpen ] = useState(true);
 
 	return (
 		<section className="bg-white xl:w-72 h-screen flex">
@@ -67,7 +62,6 @@ export default function Filters({ categories }: categoryProps) {
 										<input type="checkbox" className="bg-gray-900 rounded" value={c._id} />
 										{/* <span className="ml-2 text-gray-400">{c._id}</span> */}
 										<span className="ml-2 text-gray-400">{`${c._id} (${c.count})`}</span>
-
 									</label>
 								</div>
 							))}

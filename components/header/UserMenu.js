@@ -1,22 +1,11 @@
 import { Menu, Transition } from '@headlessui/react';
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { Fragment } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0';
 import Image from 'next/image';
 
-interface UserProps {
-	user: string
-}
-
-export default function AccountSwitcherMenu() {
+export default function UserMenu({ isOpen, setIsOpen, user }) {
 	const router = useRouter();
-
-	const { user, error, isLoading } = useUser();
-
-
-	if (isLoading || !user) return <div>Loading...</div>;
-	if (error) return <div>{error.message}</div>;
 
 	return (
 		<div className="">
@@ -24,15 +13,17 @@ export default function AccountSwitcherMenu() {
 				{({ open }) => (
 					<Fragment>
 						<div>
-							<Menu.Button className="focus:outline-none">
-								{user.picture && <Image
-									className="h-8 w-8 rounded-full object-cover fo"
-									alt=""
-									width={30}
-									height={30}
-									src={user.picture}
-								/>}
-
+							<Menu.Button className="focus:outline-none transition duration-500 ease-in-out transform hover:-translate-y-1">
+								{user.picture && (
+									<Image
+										className="rounded-full"
+										alt="brand logo"
+										objectFit="cover"
+										width={35}
+										height={35}
+										src={user.picture}
+									/>
+								)}
 							</Menu.Button>
 						</div>
 						<Transition
@@ -45,14 +36,16 @@ export default function AccountSwitcherMenu() {
 							leaveFrom="transform opacity-100 scale-100"
 							leaveTo="transform opacity-0 scale-95"
 						>
-							<Menu.Items className="absolute right-0 w-56  origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+							<Menu.Items className="absolute right-0 w-56  origin-top-left  bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
 								<div className="px-1 py-1 ">
 									<Menu.Item>
 										{({ active }) => (
 											<button
-												onClick={() => router.push('/profile')}
+												onClick={() => {
+													router.push('/profile');
+												}}
 												className={`${active
-													? 'bg-yellow-300 text-white'
+													? 'bg-purple-300 text-white'
 													: 'text-gray-900'} group flex rounded-md items-center w-full px-2 py-2 text-sm`}
 											>
 												{active ? (
@@ -98,7 +91,7 @@ export default function AccountSwitcherMenu() {
 	);
 }
 
-function EditInactiveIcon(props: any) {
+function EditInactiveIcon(props) {
 	return (
 		<svg {...props} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path d="M4 13V16H7L16 7L13 4L4 13Z" fill="#EDE9FE" stroke="#A78BFA" strokeWidth="2" />
@@ -106,7 +99,7 @@ function EditInactiveIcon(props: any) {
 	);
 }
 
-function EditActiveIcon(props: any) {
+function EditActiveIcon(props) {
 	return (
 		<svg {...props} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path d="M4 13V16H7L16 7L13 4L4 13Z" fill="#8B5CF6" stroke="#C4B5FD" strokeWidth="2" />
@@ -114,7 +107,7 @@ function EditActiveIcon(props: any) {
 	);
 }
 
-function DuplicateInactiveIcon(props: any) {
+function DuplicateInactiveIcon(props) {
 	return (
 		<svg {...props} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path d="M4 4H12V12H4V4Z" fill="#EDE9FE" stroke="#A78BFA" strokeWidth="2" />
@@ -123,7 +116,7 @@ function DuplicateInactiveIcon(props: any) {
 	);
 }
 
-function DuplicateActiveIcon(props: any) {
+function DuplicateActiveIcon(props) {
 	return (
 		<svg {...props} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path d="M4 4H12V12H4V4Z" fill="#8B5CF6" stroke="#C4B5FD" strokeWidth="2" />

@@ -20,7 +20,7 @@ export default function CreateResource() {
 	const handleSubmit = async (values: any, actions: any) => {
 
 		try {
-			const res = await axios.post('/api/resource/create', values);
+			const res = await axios.post('/api/resource', { values });
 			alert(res.data.message);
 			if (res.status === 201) {
 				actions.resetForm();

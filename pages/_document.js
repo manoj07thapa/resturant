@@ -9,7 +9,7 @@ export default class MyDocument extends Document {
 					{/* PWA primary color */}
 					<meta name="theme-color" />
 				</Head>
-				<body className="bg-gray-50">
+				<body className="bg-gray-50 antialiased text-gray-900">
 					<Main />
 					<NextScript />
 				</body>

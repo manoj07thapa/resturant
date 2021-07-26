@@ -6,7 +6,6 @@ import { useField } from 'formik';
 import UploadError from './UploadError';
 
 export default function MultipleFileUploadFields({ name }) {
-	console.log('FILENAME', name);
 	const [ files, setFiles ] = useState([]);
 
 	const [ _, __, helpers ] = useField(name);

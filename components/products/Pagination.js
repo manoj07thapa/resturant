@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-export default function Pagination({ totalPages }: { totalPages?: number | undefined }) {
+export default function Pagination({ totalPages }) {
 	const { query } = useRouter();
 
 	const pageNumbers = [];
@@ -10,9 +10,7 @@ export default function Pagination({ totalPages }: { totalPages?: number | undef
 		for (let i = 1; i <= totalPages; i++) {
 			pageNumbers.push(i);
 		}
-
 	}
-
 
 	return (
 		<div>

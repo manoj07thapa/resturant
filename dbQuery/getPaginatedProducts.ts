@@ -9,7 +9,7 @@ export async function getPaginatedProducts(query: ParsedUrlQuery) {
 	const title = getValueString(query.title);
 
 	const page = getValueNumber(query.page) || 1;
-	const productsPerPage = getValueNumber(query.productsPerPage) || 4; //products perpage
+	const productsPerPage = getValueNumber(query.productsPerPage) || 12; //products perpage
 	const skip = (page - 1) * productsPerPage;
 	let params = {};
 

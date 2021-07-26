@@ -4,7 +4,6 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { withApiAuthRequired, getSession } from '@auth0/nextjs-auth0';
 
 export default withApiAuthRequired(async function cart(req: NextApiRequest, res: NextApiResponse) {
-	const { user } = getSession(req, res);
 
 	await dbConnect();
 	switch (req.method) {
@@ -15,11 +14,11 @@ export default withApiAuthRequired(async function cart(req: NextApiRequest, res:
 });
 
 const editCartQuantity = async (req: NextApiRequest, res: NextApiResponse) => {
-	const { user } = getSession(req, res);
-
+	const session = getSession(req, res);
+	const user =  session?.user
 	const { quantity, productId } = req.body;
 
-	const cart = await Cart.findOne({ user: user.email });
+	const cart = await Cart.findOne({ user: user?.email });
 
 	try {
 		if (quantity < 1 || quantity > 5) {
@@ -29,7 +28,7 @@ const editCartQuantity = async (req: NextApiRequest, res: NextApiResponse) => {
 		if (!cart) {
 			const newProduct = { quantity, product: productId };
 
-			await new Cart({ user: user.email, products: newProduct }).save();
+			await new Cart({ user: user?.email, products: newProduct }).save();
 		}
 
 		/**checking if the product id from client exist in product array of cart colection */
@@ -51,7 +50,7 @@ const editCartQuantity = async (req: NextApiRequest, res: NextApiResponse) => {
 			);
 		}
 
-		const newCart = await Cart.findOne({ user: user.email });
+		const newCart = await Cart.findOne({ user: user?.email });
 		res.status(200).json({ success: true, message: 'product added to cart', newCart });
 	} catch (error) {
 		console.log('CartError', error);
