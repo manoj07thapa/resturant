@@ -24,7 +24,7 @@ export default function SlideoverCartPanel({ addToCart, cartItems }) {
 					addToCart();
 					setOpen((open) => !open);
 				}}
-				className="px-5 py-2 bg-green-700 text-white hover:bg-green-900 uppercase tracking-wide rounded-md shadow focus:outline-none"
+				className="px-5 py-2 w-full bg-green-900 text-white hover:bg-green-700 uppercase tracking-wide rounded-md shadow focus:outline-none"
 			>
 				Add to cart
 			</button>

@@ -1,6 +1,5 @@
 import Image from 'next/image';
 export default function CartDetail({ cartItems }) {
-	console.log(cartItems);
 	return (
 		<div className="pt-2">
 			{cartItems.map((item) => (

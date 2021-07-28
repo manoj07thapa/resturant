@@ -14,9 +14,9 @@ export default function CartQuantity({ qty, productId, mutate }: any) {
         }
     };
     return (
-        <div>
-            <label htmlFor="" className="mr-2">Quantity:</label>
-            <select onChange={handleChange}
+        <div className="flex items-center mt-1">
+            <label htmlFor="" className="mr-1 text-sm text-gray-700">Qty</label>
+            <select onChange={handleChange} className="h-10 rounded-md shadow"
                 defaultValue={qty}>
                 <option value={1}>1</option>
                 <option value={2}>2</option>

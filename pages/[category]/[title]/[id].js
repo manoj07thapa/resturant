@@ -1,39 +1,19 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import Product from '../../../models/Product';
 import dbConnect from '../../../utils/dbConnect';
-import { useUser } from '@auth0/nextjs-auth0';
 import Link from 'next/link';
 import { GetStaticProps, GetStaticPaths } from 'next';
-import axios from 'axios';
-import { ProductModel } from '../../../interfaces/ProductModel';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { DotLoader } from 'react-spinners';
-import SlideoverCartPanel from '../../../components/cart/SlideoverCartPanel';
-import { mutate } from 'swr';
 import ImageDisplay from '../../../components/product/ImageDisplay';
 import ProductInfo from '../../../components/product/ProductInfo';
+import Speciality from '../../../components/home/Speciality';
 
-export default function SingleProduct({ product }) {
-	console.log(product);
-	const { user, error, isLoading } = useUser();
-	const [ quantity, setQuantity ] = useState(1);
-	const [ cartItems, setCartItems ] = useState([]);
+export default function SingleProduct({ product, suggested }) {
+	console.log(suggested);
+
 	const router = useRouter();
-
-	const values = {
-		quantity,
-		product
-	};
-
-	const addToCart = async () => {
-		try {
-			const res = await axios.put(`/api/cart`, values);
-			setCartItems(res.data.newCart.products);
-		} catch (error) {
-			console.log(error);
-		}
-	};
 
 	if (!product) {
 		return <p>Product doesnot exist</p>;
@@ -53,27 +33,14 @@ export default function SingleProduct({ product }) {
 				</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<div className="px-3 mt-9 md:px-12 grid grid-cols-1  lg:grid-cols-3 gap-y-5 lg:gap-x-9 ">
-				<ImageDisplay images={product.files} />
+			<div className="px-3 mt-5 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-y-2 md:gap-x-9 ">
+				<ImageDisplay product={product} />
 				<ProductInfo product={product} />
 			</div>
-			<select defaultValue={1} onChange={(e) => setQuantity(parseInt(e.target.value))}>
-				<option value={1}>1</option>
-				<option value={2}>2</option>
-				<option value={3}>3</option>
-				<option value={4}>4</option>
-				<option value={5}>5</option>
-			</select>
-			<div>
-				{user ? (
-					<SlideoverCartPanel addToCart={addToCart} cartItems={cartItems} />
-				) : (
-					<button className="px-2 py-3 bg-yellow-500">
-						<Link href="/api/auth/login">
-							<a>Login</a>
-						</Link>
-					</button>
-				)}
+			<div className="mt-32  px-3 md:px-12">
+				<h3 className=" pt-6  text-md font-bold  uppercase">You might also like</h3>
+
+				<Speciality products={suggested} />
 			</div>
 		</Fragment>
 	);
@@ -88,7 +55,7 @@ export const getStaticProps = async (ctx) => {
 	const productPromise = Product.findById(id).lean();
 
 	//querying for similar products suggestion in individual product page
-	const resPromise = Product.find({ category, title }).limit(10);
+	const resPromise = Product.find({ category }).limit(10);
 
 	try {
 		const [ product, res ] = await Promise.all([ productPromise, resPromise ]);

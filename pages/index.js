@@ -36,7 +36,9 @@ export default function Home({ heroContent, popularContent, chefContent, product
 				<div>
 					<ChefSpecial chefContent={chefContent} />
 				</div>
-				<div className="">
+				<div className="px-5 md:px-12 bg-purple-100 mt-12 sm:mt-16 lg:mt-48 max-w-md mx-auto sm:max-w-xl lg:max-w-full">
+					<h3 className=" pt-6 lg:ml-4 text-md font-bold  uppercase">Our specialities</h3>
+
 					<Speciality products={products} />
 				</div>
 				<div>
