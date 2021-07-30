@@ -2,7 +2,6 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { Fragment } from 'react';
 import CarouselCard from './CarouselCard';
-import ProductCard from '../products/ProductCard';
 
 const responsive = {
 	desktop: {

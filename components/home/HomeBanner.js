@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function HomeBanner() {
 	return (
-		<div className="mt-9 md:mt-7 lg:mt-48 px-5 py-12 bg-pink-200">
+		<div className="mt-9 md:mt-7 lg:mt-48 px-5 py-12 bg-pink-200  ">
 			<div className="max-w-lg mx-auto">
 				<h1 className="text-2xl md:text-3xl font-semibold text-gray-900 text-center">
 					Become our member and eat for less.

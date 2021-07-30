@@ -15,7 +15,7 @@ import { CategoryModel } from '../interfaces/Category';
 import { ProductModel } from '../interfaces/ProductModel';
 import { GetServerSideProps } from 'next';
 import { DotLoader } from 'react-spinners';
-import TestFilter from '../components/products/TestFilter';
+import Footer from '../components/footer/Footer';
 
 // interface ProductProps {
 // 	products?: ProductModel[] | undefined;
@@ -49,13 +49,13 @@ export default function Products({ products, categories, totalPages }) {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<div className=" ">
+			<div className="xl:flex xl:h-screen xl:overflow-y-hidden ">
 				<ProductFilters categories={categories} />
 				{/* <TestFilter /> */}
 
-				<div className="lg:p-12  ">
+				<div className="lg:p-12 xl:flex-1 ">
 					<div className=" ">
-						<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-7 gap-y-20 ">
+						<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-x-7 gap-y-20 ">
 							{(data.products || [])
 								.map((product) => <ProductCard product={product} key={product._id} />)}
 						</div>
@@ -65,6 +65,7 @@ export default function Products({ products, categories, totalPages }) {
 					</div>
 				</div>
 			</div>
+			<Footer />
 		</Fragment>
 	);
 }

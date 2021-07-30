@@ -32,7 +32,7 @@ export default function CarouselCard({ product }) {
 							<div>
 								<div className="flex items-baseline space-x-2">
 									<h6 className="text-gray-500 text-xs  ">
-										Category:{' '}
+										Category:
 										<span className="text-gray-700 uppercase font-semibold tracking-wide">
 											{product.category}
 										</span>

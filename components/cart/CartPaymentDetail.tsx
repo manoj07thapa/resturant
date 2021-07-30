@@ -14,7 +14,7 @@ export default function CartPaymentDetail({ checkedCart }: any) {
 
     if (loading) return <div className="flex"><DotLoader /></div>;
     return (
-        <div className="">
+        <div className="lg:fixed bg-gray-100 h-80 xl:h-96 px-4 py-6 lg:w-80 xl:w-96 ">
             <h4 className="text-lg font-bold uppercase tracking-wide pb-4">Total</h4>
             <div className="flex justify-between pt-3 pb-2 border-t border-gray-200">
                 <h5 className="text-lg font-medium text-gray-600">Sub-total</h5>
@@ -33,8 +33,9 @@ export default function CartPaymentDetail({ checkedCart }: any) {
                 <div className="inline-flex space-x-4 mt-1">
                     <span className="bg-purple-500 px-2 py-1 text-white  rounded-md shadow text-xs">khalti</span>
                     <span className="bg-green-500 px-2 py-1 text-white rounded-md shadow text-xs">e-sewa</span>
+                    <span className="bg-gray-500 px-2 py-1 text-white rounded-md shadow text-xs">cash on delivery</span>
                 </div>
-                <p className="text-gray-400 text-xs mt-6">Got a discount code? Add it in the next step.</p>
+                <p className="text-gray-400 text-xs mt-4">Got a discount code? Add it in the next step.</p>
             </div>
         </div >
     )

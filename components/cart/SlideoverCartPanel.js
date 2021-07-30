@@ -29,7 +29,7 @@ export default function SlideoverCartPanel({ addToCart, cartItems }) {
 				Add to cart
 			</button>
 			<Transition.Root show={open} as={Fragment}>
-				<Dialog as="div" static className="fixed inset-0 overflow-hidden" open={open} onClose={setOpen}>
+				<Dialog as="div" static className="fixed inset-0 overflow-hidden z-20" open={open} onClose={setOpen}>
 					<div className="absolute inset-0 overflow-hidden">
 						<Transition.Child
 							as={Fragment}

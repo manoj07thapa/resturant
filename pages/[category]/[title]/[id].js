@@ -9,6 +9,7 @@ import { DotLoader } from 'react-spinners';
 import ImageDisplay from '../../../components/product/ImageDisplay';
 import ProductInfo from '../../../components/product/ProductInfo';
 import Speciality from '../../../components/home/Speciality';
+import Footer from '../../../components/footer/Footer';
 
 export default function SingleProduct({ product, suggested }) {
 	console.log(suggested);
@@ -33,7 +34,7 @@ export default function SingleProduct({ product, suggested }) {
 				</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<div className="px-3 mt-5 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-y-2 md:gap-x-9 ">
+			<div className="px-3 mt-28 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-y-2 md:gap-x-9 ">
 				<ImageDisplay product={product} />
 				<ProductInfo product={product} />
 			</div>
@@ -42,6 +43,7 @@ export default function SingleProduct({ product, suggested }) {
 
 				<Speciality products={suggested} />
 			</div>
+			<Footer />
 		</Fragment>
 	);
 }

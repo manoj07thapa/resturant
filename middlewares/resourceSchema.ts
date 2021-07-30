@@ -8,7 +8,7 @@ export const resourceSchema = object({
 	subtitle2: string().required(),
 	files: array(
 		object({
-			url: string()
+			url: string().url().required()
 		})
 	),
 	description: string().required()

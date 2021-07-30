@@ -10,9 +10,11 @@ function MyApp({ Component, pageProps }) {
 	return (
 		<UserProvider user={user}>
 			<Header />
-			<SWRConfig value={{ fetcher: (url) => axios(url).then((r) => r.data) }}>
-				<Component {...pageProps} />
-			</SWRConfig>
+			<div className=" mt-20">
+				<SWRConfig value={{ fetcher: (url) => axios(url).then((r) => r.data) }}>
+					<Component {...pageProps} />
+				</SWRConfig>
+			</div>
 		</UserProvider>
 	);
 }

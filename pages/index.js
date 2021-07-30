@@ -8,7 +8,7 @@ import HomeBanner from '../components/home/HomeBanner';
 import Popular from '../components/home/Popular';
 import ChefSpecial from '../components/home/ChefSpecial';
 import Speciality from '../components/home/Speciality';
-import Footer from '../components/home/Footer';
+import Footer from '../components/footer/Footer';
 
 export default function Home({ heroContent, popularContent, chefContent, products }) {
 	if (!heroContent || !popularContent || !chefContent || !products) {

@@ -8,6 +8,7 @@ import { DotLoader } from 'react-spinners';
 import CartPaymentDetail from '../components/cart/CartPaymentDetail';
 import CartQuantity from '../components/cart/CartQuantity';
 import CalcTotal from '../components/cart/CalcTotal';
+import Footer from '../components/footer/Footer';
 
 export default withPageAuthRequired(function Cart() {
 	const { cart, isLoading, isError, mutate } = GetCart();
@@ -55,7 +56,7 @@ export default withPageAuthRequired(function Cart() {
 				<title>Your Cart</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<div className="px-3 mt-5 md:px-24 grid grid-cols-1 lg:grid-cols-6 gap-y-9 lg:gap-x-9 ">
+			<div className="px-3 mt-24 sm:mt-28 md:px-24 grid grid-cols-1 lg:grid-cols-6 gap-y-9 lg:gap-x-9 ">
 				<div className="lg:col-span-4 lg:col-start-1 ">
 					<div className=" bg-gray-100 ">
 						<div className="md:flex md:justify-between px-4 py-6">
@@ -182,10 +183,11 @@ export default withPageAuthRequired(function Cart() {
 						<CalcTotal checkedCart={checkedCart} />
 					</div>
 				</div>
-				<div className="lg:col-span-2  bg-gray-100 h-96 px-4 py-6 ">
+				<div className="lg:col-span-2   ">
 					<CartPaymentDetail checkedCart={checkedCart} />
 				</div>
 			</div>
+			<Footer />
 		</Fragment>
 	);
 });

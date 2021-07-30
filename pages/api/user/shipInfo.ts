@@ -21,10 +21,11 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 const getShipInfo = async (req: NextApiRequest, res: NextApiResponse) => {
-	const { user } = getSession(req, res);
+	const session = getSession(req, res);
+	const user =  session?.user
 
 	try {
-		const ship = await ShipInfo.findOne({ email: user.email });
+		const ship = await ShipInfo.findOne({ email: user?.email });
 
 		res.status(200).json({ success: true, shipInfo: ship });
 	} catch (error) {
@@ -45,13 +46,14 @@ const createShipInfo = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 const editShipInfo = async (req: NextApiRequest, res: NextApiResponse) => {
-	const { user } = getSession(req, res);
-
+	const session = getSession(req, res);
+	const user =  session?.user
+	
 	const { fullname, email, zone, district, phone, city, area, address } = req.body.values;
 
 	try {
 		const shipInfo = await ShipInfo.findOneAndUpdate(
-			{ email: user.email },
+			{ email: user?.email },
 			{
 				$set: {
 					fullname: fullname,

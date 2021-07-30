@@ -21,7 +21,7 @@ export default function Header() {
 	if (error) return <div>{error.message}</div>;
 
 	return (
-		<div className=" bg-white border-b border-gray-200">
+		<div className=" bg-white border-b border-gray-200 w-full fixed z-10 top-0">
 			<div className="flex items-center justify-between  px-3 md:px-12 py-4  md:py-3  md:max-w-9xl  mx-auto ">
 				<div className="hidden sm:block">
 					<Link href="/">

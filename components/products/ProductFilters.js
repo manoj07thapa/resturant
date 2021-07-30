@@ -35,14 +35,14 @@ const submitMyForm = (values) => {
 
 const ProductFilters = ({ categories }) => {
 	const { query } = useRouter();
-	const [ isOpen, setIsOpen ] = useState(false);
+	const [ isOpen, setIsOpen ] = useState(true);
 
 	const initialValues = {
 		category: query.category || 'all'
 	};
 	return (
-		<div className=" ">
-			<div className="px-3 py-2 bg-gray-900 ">
+		<div className="xl:w-72 ">
+			<div className="px-3 py-2 bg-gray-900 xl:hidden">
 				<button
 					type="submit"
 					onClick={() => setIsOpen(!isOpen)}
@@ -56,9 +56,9 @@ const ProductFilters = ({ categories }) => {
 				<Formik initialValues={initialValues} onSubmit={submitMyForm}>
 					{({ values, handleChange, errors }) => {
 						return (
-							<Form className="px-3 space-y-4 bg-gray-800   ">
-								<div className="lg:flex   ">
-									<div className="md:flex lg:block py-4 md:items-center justify-between md:space-x-2 lg:space-x-0 lg:w-1/3   ">
+							<Form className="px-3 xl:px-0 space-y-4 bg-gray-800 pt-5 xl:h-full xl:flex xl:flex-col xl:justify-between  ">
+								<div className="lg:flex xl:block  xl:overflow-y-auto  ">
+									<div className="md:flex lg:block py-4 md:items-center justify-between md:space-x-2 lg:space-x-0 lg:w-1/3 xl:w-full  ">
 										<label htmlFor=" category" className=" block space-y-1  md:w-1/2 lg:w-full">
 											<span className="text-sm font-medium text-gray-500">Category</span>
 											<Field
@@ -79,7 +79,7 @@ const ProductFilters = ({ categories }) => {
 											</Field>
 										</label>
 
-										<div className=" flex space-x-2 md:w-1/2 lg:w-full lg:mt-1">
+										<div className=" flex space-x-2 md:w-1/2 lg:w-full lg:mt-1 xl:w-full">
 											<label htmlFor="make" className="w-1/2  block space-y-1">
 												<span className="text-sm font-medium text-gray-500">Make</span>
 												<Field
@@ -99,7 +99,7 @@ const ProductFilters = ({ categories }) => {
 													</option>
 												</Field>
 											</label>
-											<label htmlFor="model" className="w-1/2 block space-y-1 lg:w-1/2 ">
+											<label htmlFor="model" className="w-1/2 block space-y-1 lg:w-1/2  ">
 												<span className="text-sm font-medium text-gray-500">Model</span>
 												<Field
 													as="select"
@@ -120,7 +120,7 @@ const ProductFilters = ({ categories }) => {
 											</label>
 										</div>
 									</div>
-									<div className="space-y-1 py-4 border-t border-gray-900 lg:w-1/3 lg:ml-9 lg:border-l lg:px-7  ">
+									<div className="space-y-1 py-4 border-t border-gray-900 lg:w-1/3 xl:w-full lg:ml-9 xl:ml-0 lg:border-l lg:px-7 xl:px-0 xl:border-l-0  ">
 										<span className=" block text-sm font-medium text-gray-500">Food type</span>
 										<div className="flex items-center justify-between  md:flex-wrap  ">
 											<label htmlFor="foodType" className="space-x-1 md:w-1/4 lg:w-full ">
@@ -161,7 +161,7 @@ const ProductFilters = ({ categories }) => {
 											</label>
 										</div>
 									</div>
-									<div className="pt-4 border-t border-gray-900 mb-4 lg:w-1/3 lg:border-l lg:pl-7 ">
+									<div className="pt-4 border-t border-gray-900 mb-4 lg:w-1/3 xl:w-full xl:border-l-0 lg:border-l lg:pl-7 xl:pl-0 ">
 										<span className=" block text-sm font-medium text-gray-500">Food category</span>
 										<div className="flex flex-col md:flex-row md:items-center md:flex-wrap space-y-1 mt-1 md:space-y-0  ">
 											{categories.map((c) => (
@@ -185,7 +185,7 @@ const ProductFilters = ({ categories }) => {
 										onClick={() => {
 											setIsOpen(!isOpen);
 										}}
-										className="bg-purple-900 hover:bg-purple-500 px-4 py-2 block w-full md:w-auto md:inline-block  rounded-md shadow text-white font-medium tracking-wideer uppercase focus:outline-none "
+										className="bg-purple-900 hover:bg-purple-500 px-4 py-2 block w-full md:w-auto md:inline-block  rounded-md shadow text-white font-medium tracking-wideer uppercase focus:outline-none xl:block xl:w-full "
 									>
 										Apply filters
 									</button>
