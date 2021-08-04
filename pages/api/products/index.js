@@ -1,4 +1,3 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '../../../utils/dbConnect';
 import Product from '../../../models/Product';
 import { productSchema } from '../../../middlewares/productSchema';
@@ -6,7 +5,7 @@ import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { validate } from '../../../middlewares/validate';
 import { getPaginatedProducts } from '../../../dbQuery/getPaginatedProducts';
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req, res) => {
 	dbConnect();
 	switch (req.method) {
 		case 'GET':
@@ -24,7 +23,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	}
 };
 
-const getProducts = async (req: NextApiRequest, res: NextApiResponse) => {
+const getProducts = async (req, res) => {
 	try {
 		const products = await getPaginatedProducts(req.query);
 		res.status(200).json(products);
@@ -33,18 +32,44 @@ const getProducts = async (req: NextApiRequest, res: NextApiResponse) => {
 	}
 };
 
-const createProduct = async (req: NextApiRequest, res: NextApiResponse) => {
-	const { category, title, price, description, files } = req.body.values;
+const createProduct = async (req, res) => {
+	const {
+		category,
+		title,
+		subtitle,
+		ingredients,
+		format,
+		discount,
+		chefSpecial,
+		price,
+		description,
+		popular,
+		speciality,
+		files
+	} = req.body.values;
 	try {
-		await new Product({ category, title, price, description, files }).save();
+		await new Product({
+			category,
+			title,
+			subtitle,
+			ingredients,
+			format,
+			discount,
+			chefSpecial,
+			price,
+			description,
+			popular,
+			speciality,
+			files
+		}).save();
 		res.status(201).json({ message: 'Product created' });
 	} catch (error) {
 		res.json({ err: 'Something went wrong' });
 	}
 };
 
-const editProduct = async (req: NextApiRequest, res: NextApiResponse) => {};
+const editProduct = async (req, res) => {};
 
-const deleteProduct = async (req: NextApiRequest, res: NextApiResponse) => {};
+const deleteProduct = async (req, res) => {};
 
 export default withApiAuthRequired(validate(productSchema, handler));

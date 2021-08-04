@@ -35,6 +35,14 @@ export default function MobileHeader({ isOpen, setIsOpen, user }) {
 						<nav className="flex flex-col  px-2 space-y-8">
 							{user ? (
 								<div className="space-y-8 ">
+									<Link href="/products">
+										<a className="flex items-center space-x-4" onClick={() => setIsOpen(!isOpen)}>
+											<h3 className=" text-xl font-sm text-gray-900 tracking-wide ">
+												Browse Food
+											</h3>
+										</a>
+									</Link>
+
 									<Link href="/cart">
 										<a className="flex items-center space-x-4" onClick={() => setIsOpen(!isOpen)}>
 											<CartIcon />

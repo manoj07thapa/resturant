@@ -12,11 +12,20 @@ export default function DesktopHeader({ user, isOpen, setIsOpen }) {
 			<nav className="flex items-center sm:space-x-10 md:space-x-32">
 				{user ? (
 					<div className="flex items-center space-x-10">
+						<Link href="/products">
+							<a
+								className={`${router.pathname === '/products'
+									? 'inline-flex items-center tracking-wide space-x-1 text-lg font-semibold bg-purple-900 text-white px-4 py-1 rounded-md'
+									: 'inline-flex items-center tracking-wide space-x-1 text-lg font-semibold text-gray-700 hover:text-gray-400'} `}
+							>
+								Browse Food
+							</a>
+						</Link>
 						<Link href="/favourites">
 							<a
 								className={`${router.pathname === '/favourites'
-									? 'inline-flex items-center space-x-1 text-lg font-sm bg-purple-900 text-white px-4 py-1 rounded-md'
-									: 'inline-flex items-center space-x-1 text-lg font-sm text-gray-900 hover:text-gray-400'} `}
+									? 'inline-flex items-center space-x-1 text-lg font-semibold tracking-wide  bg-purple-900 text-white px-4 py-1 rounded-md'
+									: 'inline-flex items-center space-x-1 text-lg font-semibold tracking-wide  text-gray-700 hover:text-gray-400'} `}
 							>
 								{/* <FavouriteIcon /> */}
 								<span>Favourite</span>
@@ -29,7 +38,7 @@ export default function DesktopHeader({ user, isOpen, setIsOpen }) {
 									: 'px-4 py-1 inline-flex items-center space-x-1 bg-gray-900 hover:bg-gray-500 text-white rounded-md'}`}
 							>
 								<CartIcon />
-								<span className="text-lg font-sm ">Cart</span>
+								<span className="text-lg font-semibold tracking-wide ">Cart</span>
 								<span className="text-xs font-bold">-{1}</span>
 							</a>
 						</Link>

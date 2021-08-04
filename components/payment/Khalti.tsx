@@ -53,7 +53,7 @@ export default function Khalti({ products, totalAmt }: any) {
     };
 
     return (
-        <button onClick={handleClick} className="px-4 py-2 bg-purple-700 rounded-sm shadow text-white" >
+        <button onClick={handleClick} className="px-5 py-2 bg-purple-900 rounded-md shadow text-white text-medium" >
             Khalti
         </button>
     );

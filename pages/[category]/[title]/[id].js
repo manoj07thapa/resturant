@@ -12,8 +12,6 @@ import Speciality from '../../../components/home/Speciality';
 import Footer from '../../../components/footer/Footer';
 
 export default function SingleProduct({ product, suggested }) {
-	console.log(suggested);
-
 	const router = useRouter();
 
 	if (!product) {

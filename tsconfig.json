@@ -8,7 +8,7 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "pages/dashboard/index.js", "components/header/UserMenu.js", "pages/cart.js", "models/User.js", "models/Product.js", "models/Cart.js", "components/dashboard/CreateResource.js", "components/home/HeroContent.js", "components/header/Header.js", "components/header/MobileHeader.js", "components/header/Search.js", "components/header/DesktopHeader.js", "pages/index.js", "pages/products.js", "components/products/Filters.js", "components/products/Pagination.js", "pages/[category]/[title]/[id].js", "components/shipping/ShippingInfoForm.js", "pages/favourites.js", "pages/checkout.js", "pages/shippingInfo.js", "components/shipping/EditShipInfoModel.js", "components/shipping/ShippingInfoEditForm.js"  ],
+, "pages/dashboard/index.js", "components/header/UserMenu.js", "pages/cart.js", "models/User.js", "models/Product.js", "models/Cart.js", "components/dashboard/CreateResource.js", "components/home/HeroContent.js", "components/header/Header.js", "components/header/MobileHeader.js", "components/header/Search.js", "components/header/DesktopHeader.js", "pages/index.js", "pages/products.js", "components/products/Filters.js", "components/products/Pagination.js", "pages/[category]/[title]/[id].js", "components/shipping/ShippingInfoForm.js", "pages/favourites.js", "pages/checkout.js", "pages/shippingInfo.js", "components/shipping/EditShipInfoModel.js", "components/shipping/ShippingInfoEditForm.js", "components/dashboard/CreateProduct.js", "components/dashboard/Sidebar.js", "middlewares/prodCatSchema.js", "middlewares/productSchema.js", "pages/api/products/index.js", "middlewares/resourceSchema.js", "components/cart/CartPaymentDetail.js", "middlewares/shipInfoSchema.js", "pages/paymentSuccess.js", "pages/paymentFailed.js", "dbQuery/getPaginatedProducts.js", "dbQuery/getCategories.js"  ],
   "exclude": [
     "node_modules"
   ]

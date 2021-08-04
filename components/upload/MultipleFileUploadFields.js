@@ -6,9 +6,8 @@ import { useField } from 'formik';
 import UploadError from './UploadError';
 
 export default function MultipleFileUploadFields({ name }) {
-	const [ files, setFiles ] = useState([]);
-
 	const [ _, __, helpers ] = useField(name);
+	const [ files, setFiles ] = useState([]);
 
 	const onDrop = useCallback((accFiles, rejFiles) => {
 		// Do something with the files
@@ -20,6 +19,7 @@ export default function MultipleFileUploadFields({ name }) {
 		() => {
 			helpers.setValue(files);
 			// helpers.setTouched(true);
+			// helpers.setError(false);
 		},
 		[ files ]
 	);
@@ -47,15 +47,15 @@ export default function MultipleFileUploadFields({ name }) {
 
 	return (
 		<Fragment>
-			<div {...getRootProps()} className="mt-4">
+			<div {...getRootProps()} className="mt-7">
 				<input {...getInputProps()} />
-				<p className="bg-yellow-200 px-3 py-4 rounded-lg ">
-					Drag and drop some files here, or click to select files
+				<p className="bg-purple-200 px-3 py-6 text-center rounded-md  border border-dashed border-gray-500 ">
+					Drag and drop files here or click to select files
 				</p>
 			</div>
 
 			{files.map((fileWrapper, i) => (
-				<div key={i}>
+				<div key={i} className="mt-5 ">
 					{fileWrapper.errors ? (
 						<UploadError file={fileWrapper.file} errors={fileWrapper.errors} onDelete={onDelete} />
 					) : (

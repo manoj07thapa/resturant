@@ -73,7 +73,7 @@ export default function ImageDisplay({ product }) {
 					</button>
 				</div>
 			</div>
-			<div className="mt-5">
+			<div className="mt-5 relative">
 				<Image
 					src={product.files[0].url}
 					alt="product image"
@@ -82,8 +82,15 @@ export default function ImageDisplay({ product }) {
 					objectFit="cover"
 					layout="responsive"
 					quality={30}
-					className="rounded-md shadow "
+					className="rounded-md shadow  "
 				/>
+				<div className="mt-3 absolute top-0 right-0 mr-2">
+					{product.chefSpecial && (
+						<p className="text-xs  text-center px-1 py-1 rounded-full shadow bg-purple-500 text-white">
+							chef special
+						</p>
+					)}
+				</div>
 			</div>
 		</div>
 	);

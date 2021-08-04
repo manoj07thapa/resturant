@@ -6,6 +6,7 @@ import { DotLoader } from 'react-spinners';
 import Head from 'next/head';
 import { GetShipInfo } from '../dbQuery/getShipInfo';
 import Khalti from '../components/payment/Khalti';
+import Esewa from '../components/payment/Esewa';
 import Footer from '../components/footer/Footer';
 import Image from 'next/image';
 import CheckoutIcon from '../public/iconmonstr-checkout-2.svg';
@@ -26,6 +27,10 @@ export default withPageAuthRequired(function Checkout() {
 	var checkedCart = cart.cartProducts.filter(function(x) {
 		return x.isChecked % 2 === 0;
 	});
+	let subTotal = 0;
+	checkedCart.map((p) => {
+		subTotal += p.product.price * p.quantity;
+	});
 
 	return (
 		<Fragment>
@@ -43,20 +48,38 @@ export default withPageAuthRequired(function Checkout() {
 				<div className="lg:grid lg:grid-cols-3 gap-9 mt-7">
 					<div className="lg:col-span-2 ">
 						<div className="lg:flex lg:justify-between bg-gray-100 py-5 px-4">
-							<h3 className="text-lg font-bold uppercase tracking-wider text-gray-700">Delivery zone</h3>
-							<h5 className="text-lg font-medium text-gray-500">{shipInfo.shipInfo.zone}</h5>
+							<h3 className="text-lg font-bold uppercase tracking-wider text-gray-700">
+								Make your payment using
+							</h3>
+							<div className="flex space-x-3 mt-2 lg:mt-0">
+								<Khalti products={checkedCart} totalAmt={subTotal} />
+
+								<Esewa />
+								<button
+									type="submit"
+									className="px-5 py-2 bg-gray-300 rounded-md shadow text-gray-800 text-medium"
+								>
+									Cash on delivery
+								</button>
+							</div>
+						</div>
+						<div className="lg:flex lg:justify-between bg-gray-100 py-5 px-4 mt-3">
+							<h3 className="text-medium font-bold uppercase tracking-wider text-gray-700">
+								Delivery zone
+							</h3>
+							<h5 className="text-medium font-medium text-gray-500">{shipInfo.shipInfo.zone}</h5>
 						</div>
 						<div className="lg:flex lg:justify-between bg-gray-100 py-5 px-4 mt-3">
 							<h3 className="text-medium font-bold uppercase tracking-wider text-gray-700">
 								Promo/student code or vouchers
 							</h3>
-							<span className="text-lg font-medium text-gray-500">None</span>
+							<span className="text-medium font-medium text-gray-500">None</span>
 						</div>
 						<div className="lg:flex lg:justify-between bg-gray-100 py-5 px-4 mt-3">
 							<h3 className="text-medium font-bold uppercase tracking-wider text-gray-700">
 								Email address
 							</h3>
-							<span className="text-lg font-medium text-gray-500">{shipInfo.shipInfo.email}</span>
+							<span className="text-medium font-medium text-gray-500">{shipInfo.shipInfo.email}</span>
 						</div>
 						<div className=" bg-gray-100 py-5 px-4 mt-3 flex justify-between">
 							<div>

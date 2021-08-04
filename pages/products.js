@@ -11,17 +11,8 @@ import { stringify } from 'querystring';
 import { useRouter } from 'next/router';
 import Pagination from '../components/products/Pagination';
 import Head from 'next/head';
-import { CategoryModel } from '../interfaces/Category';
-import { ProductModel } from '../interfaces/ProductModel';
-import { GetServerSideProps } from 'next';
 import { DotLoader } from 'react-spinners';
 import Footer from '../components/footer/Footer';
-
-// interface ProductProps {
-// 	products?: ProductModel[] | undefined;
-// 	categories: CategoryModel[];
-// 	totalPages?: number | undefined;
-// }
 
 export default function Products({ products, categories, totalPages }) {
 	const { query } = useRouter();
@@ -35,7 +26,7 @@ export default function Products({ products, categories, totalPages }) {
 
 	if (!data || !products) {
 		return (
-			<div className="flex items-center justify-center">
+			<div className="flex items-center justify-center ">
 				<DotLoader color="#2a9d8f" />
 			</div>
 		);
@@ -49,11 +40,12 @@ export default function Products({ products, categories, totalPages }) {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<div className="xl:flex xl:h-screen xl:overflow-y-hidden ">
-				<ProductFilters categories={categories} />
-				{/* <TestFilter /> */}
+			<div className="xl:flex   ">
+				<div className="xl:fixed xl:h-full ">
+					<ProductFilters categories={categories} className="" />
+				</div>
 
-				<div className="lg:p-12 xl:flex-1 ">
+				<div className="lg:p-12 xl:flex-1 xl:ml-72  ">
 					<div className=" ">
 						<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-x-7 gap-y-20 ">
 							{(data.products || [])

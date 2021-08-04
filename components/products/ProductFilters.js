@@ -23,14 +23,14 @@ const ValueChangeListener = () => {
 
 const submitMyForm = (values) => {
 	console.log('Values', values);
-	// router.push(
-	// 	{
-	// 		pathname: '/products',
-	// 		query: { ...values, page: 1 }
-	// 	},
-	// 	undefined,
-	// 	{ shallow: true }
-	// );
+	router.push(
+		{
+			pathname: '/products',
+			query: { ...values, page: 1 }
+		},
+		undefined,
+		{ shallow: true }
+	);
 };
 
 const ProductFilters = ({ categories }) => {
@@ -56,9 +56,9 @@ const ProductFilters = ({ categories }) => {
 				<Formik initialValues={initialValues} onSubmit={submitMyForm}>
 					{({ values, handleChange, errors }) => {
 						return (
-							<Form className="px-3 xl:px-0 space-y-4 bg-gray-800 pt-5 xl:h-full xl:flex xl:flex-col xl:justify-between  ">
-								<div className="lg:flex xl:block  xl:overflow-y-auto  ">
-									<div className="md:flex lg:block py-4 md:items-center justify-between md:space-x-2 lg:space-x-0 lg:w-1/3 xl:w-full  ">
+							<Form className="px-3 xl:px-2 space-y-4 bg-gray-800 pt-5  ">
+								<div className="lg:flex xl:block    ">
+									<div className="   md:flex lg:block py-4 md:items-center justify-between md:space-x-2 lg:space-x-0 lg:w-1/3 xl:w-full  ">
 										<label htmlFor=" category" className=" block space-y-1  md:w-1/2 lg:w-full">
 											<span className="text-sm font-medium text-gray-500">Category</span>
 											<Field
@@ -191,7 +191,7 @@ const ProductFilters = ({ categories }) => {
 									</button>
 								</div>
 
-								{/* <ValueChangeListener /> */}
+								<ValueChangeListener />
 							</Form>
 						);
 					}}

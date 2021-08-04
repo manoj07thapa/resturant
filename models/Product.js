@@ -11,6 +11,20 @@ const ProductSchema = new mongoose.Schema({
 		required: [ true, 'Please add a title' ],
 		maxlength: [ 40, 'Title cannot be more than 40 characters' ]
 	},
+	subtitle: {
+		type: String
+	},
+	format: {
+		type: Array,
+		required: true
+	},
+	ingredients: {
+		type: Array,
+		required: true
+	},
+	chefSpecial: Boolean,
+	popular: Boolean,
+	speciality: Boolean,
 	price: {
 		type: Number,
 		required: true
@@ -19,6 +33,9 @@ const ProductSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 		maxlength: [ 1000, 'Description cannot be more than 1000 characters' ]
+	},
+	discount: {
+		type: Number
 	},
 	files: {
 		type: [ {} ],

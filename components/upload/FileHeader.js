@@ -5,14 +5,25 @@ import { BounceLoader } from 'react-spinners';
 export function FileHeader({ file, imgUrl, onDelete }) {
 	return (
 		<Fragment>
-			<div className="flex  items-center">
-				{imgUrl && <Image src={imgUrl} alt="" height={100} width={100} />}
+			<div className="flex  items-center space-x-3">
+				{imgUrl && (
+					<Image
+						className="rounded-md shadow"
+						src={imgUrl}
+						alt="product image"
+						height={100}
+						width={100}
+						objectFit="cover"
+						quality={30}
+					/>
+				)}
 
 				<button
 					onClick={() => {
 						onDelete(file);
 					}}
 					type="button"
+					className="bg-gray-200 rounded-full px-2 py-2 hover:bg-gray-400 text-gray-700"
 				>
 					<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
 						<path

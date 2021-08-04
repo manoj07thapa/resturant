@@ -38,7 +38,7 @@ export default function CheckoutItemsInfo({ checkedCart }) {
 					))}
 				</div>
 			</div>
-			<div className="mt-2 border-t border-gray-200 ">
+			<div className=" border-t border-gray-200 ">
 				<div className="flex justify-between pt-4">
 					<h6 className="text-medium  text-gray-600  ">Sub-total</h6>
 					<CalcTotal checkedCart={checkedCart} />
@@ -47,7 +47,7 @@ export default function CheckoutItemsInfo({ checkedCart }) {
 					<h6 className="text-medium  text-gray-600  ">Delivery</h6>
 					<p className="text-xs bg-green-200 text-green-700 px-3 rounded-full shadow">free</p>
 				</div>
-				<div className="flex justify-between items-center mt-3 ">
+				<div className="flex justify-between items-center mt-3 pb-1 ">
 					<h6 className="text-lg font-bold uppercase tracking-widest  text-gray-800  ">Total to pay</h6>
 					<CalcTotal checkedCart={checkedCart} />
 				</div>

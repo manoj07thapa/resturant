@@ -50,6 +50,17 @@ export default withPageAuthRequired(function Cart() {
 		}
 	};
 
+	const addToFavourite = async (product) => {
+		try {
+			const res = await axios.put(`/api/favourite`, product);
+			if (res.data.success === true) {
+				deleteCart(product._id);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<Fragment>
 			<Head>
@@ -111,13 +122,17 @@ export default withPageAuthRequired(function Cart() {
 									<div className="">
 										<h4 className="text-lg font-semibold">Rs.{item.product.price}</h4>
 										<h5 className="text-medium font-medium text-gray-700">{item.product.title}</h5>
+										{item.product.discount && (
+											<p className="text-xs text-gray-700  py-1 font-medium">
+												-{item.product.discount}%
+											</p>
+										)}
 
-										<p className="text-xs text-gray-700  py-1 font-medium">discount(10%)</p>
 										<div className="mt-1 sm:flex sm:justify-between">
 											<button
-												className="pt-1 flex items-center "
+												className="pt-1 flex items-center focus:outline-none"
 												type="submit"
-												onClick={() => addToFavourite(product)}
+												onClick={() => addToFavourite(item.product)}
 											>
 												<svg
 													xmlns="http://www.w3.org/2000/svg"
@@ -159,10 +174,11 @@ export default withPageAuthRequired(function Cart() {
 											onClick={() => {
 												deleteCart(item.product._id);
 											}}
+											className="bg-gray-100 hover:bg-gray-300 rounded-full px-2 py-2"
 										>
 											<svg
 												xmlns="http://www.w3.org/2000/svg"
-												className="h-5 w-5"
+												className="h-5 w-5 text-gray-400 hover:text-gray-600"
 												viewBox="0 0 20 20"
 												fill="currentColor"
 											>

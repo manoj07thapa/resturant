@@ -30,7 +30,7 @@ export default function ShippingInfoForm({ shipInfo }) {
 		email: user.email,
 		zone: '',
 		district: '',
-		phone: '',
+		phone: 0,
 		city: '',
 		area: '',
 		address: ''
@@ -63,6 +63,7 @@ export default function ShippingInfoForm({ shipInfo }) {
 					<Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={shipInfoSchema}>
 						{({ errors, isSubmitting, isValid, values }) => (
 							<Form>
+								{console.log(errors)}
 								<div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-y-5">
 									<label htmlFor="fullname" className="">
 										<span className="block text-sm font-semibold text-gray-500 mb-1">Fullname</span>

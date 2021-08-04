@@ -1,11 +1,11 @@
-import { array, object, string, TypeOf } from 'yup';
+import { array, object, string } from 'yup';
 
 export const resourceSchema = object({
 	category: string().required(),
-	title: string().required().min(9),
+	title: string().required().max(30),
 	subtitle: string().required(),
-	subtitle1: string().required(),
-	subtitle2: string().required(),
+	subtitle1: string(),
+	subtitle2: string(),
 	files: array(
 		object({
 			url: string().url().required()
@@ -13,5 +13,3 @@ export const resourceSchema = object({
 	),
 	description: string().required()
 });
-
-export type resource = TypeOf<typeof resourceSchema>;

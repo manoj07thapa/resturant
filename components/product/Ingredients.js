@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Disclosure, Transition } from '@headlessui/react';
 
-export default function Ingredients({ description }) {
+export default function Ingredients({ description, ingredients }) {
 	return (
 		<div className="w-full">
 			<Disclosure>
@@ -13,11 +13,7 @@ export default function Ingredients({ description }) {
 						</div>
 						<Disclosure.Panel static className="px-2  pb-2 text-sm text-gray-500">
 							<ul className="space-y-1 list-disc pl-3">
-								<li>Chicken</li>
-								<li>Garlic</li>
-								<li>Flower</li>
-								<li>Honey</li>
-								<li>Potato</li>
+								{ingredients.map((ingredient, i) => <li key={i}>{ingredient}</li>)}
 							</ul>
 						</Disclosure.Panel>
 					</Fragment>
