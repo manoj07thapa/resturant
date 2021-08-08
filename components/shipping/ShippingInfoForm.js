@@ -8,7 +8,7 @@ import { DotLoader } from 'react-spinners';
 import Image from 'next/image';
 import DeliveryIcon from '../../public/iconmonstr-delivery-6.svg';
 
-export default function ShippingInfoForm({ shipInfo }) {
+export default function ShippingInfoForm({}) {
 	// useEffect(() => {
 	// 	if (shipInfo.shipInfo.zone) {
 	// 		router.push('/checkout');
@@ -19,7 +19,7 @@ export default function ShippingInfoForm({ shipInfo }) {
 
 	if (isLoading)
 		return (
-			<div className="flex justify-center">
+			<div className="flex justify-center mt-72">
 				<DotLoader color="#2a9d8f" />
 			</div>
 		);
@@ -63,7 +63,6 @@ export default function ShippingInfoForm({ shipInfo }) {
 					<Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={shipInfoSchema}>
 						{({ errors, isSubmitting, isValid, values }) => (
 							<Form>
-								{console.log(errors)}
 								<div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-y-5">
 									<label htmlFor="fullname" className="">
 										<span className="block text-sm font-semibold text-gray-500 mb-1">Fullname</span>

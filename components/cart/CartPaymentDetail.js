@@ -6,14 +6,14 @@ import CalcTotal from './CalcTotal';
 
 export default function CartPaymentDetail({ checkedCart }) {
 	const router = useRouter();
-	const { shipInfo, loading, error, mutate } = GetShipInfo();
+	const { shipInfo, loading, error } = GetShipInfo();
 
 	if (error) return <h1>Opps!! no ShipInfo</h1>;
 
 	if (loading)
 		return (
-			<div className="flex">
-				<DotLoader />
+			<div className="flex justify-center mt-72">
+				<DotLoader color="#2a9d8f" />
 			</div>
 		);
 	return (
@@ -29,12 +29,12 @@ export default function CartPaymentDetail({ checkedCart }) {
 			</div>
 			<button
 				onClick={() => {
-					shipInfo ? router.push('/checkout') : router.push('/shippingInfo');
+					shipInfo.shipInfo === null ? router.push('/shippingInfo') : router.push('/checkout');
 				}}
-				disabled={!checkedCart}
-				className={`${checkedCart
-					? 'px-4 py-2 mt-7 bg-green-900 hover:bg-green-700 rounded-md shadow text-white text-center w-full uppercase tracking-wide text-medium focus:outline-none'
-					: 'px-4 py-2 mt-7 bg-gray-400 rounded-md shadow text-white text-center w-full uppercase tracking-wide text-medium focus:outline-none'}`}
+				disabled={checkedCart.length === 0}
+				className={`${checkedCart.length === 0
+					? 'px-4 py-2 mt-7  bg-gray-400  rounded-md shadow text-white text-center w-full uppercase tracking-wide text-medium focus:outline-none'
+					: 'px-4 py-2 mt-7 bg-green-900 hover:bg-green-700 rounded-md shadow text-white text-center w-full uppercase tracking-wide text-medium focus:outline-none'}`}
 			>
 				Proceed to payment
 			</button>

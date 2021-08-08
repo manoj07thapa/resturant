@@ -15,7 +15,7 @@ export default function DesktopHeader({ user, isOpen, setIsOpen }) {
 						<Link href="/products">
 							<a
 								className={`${router.pathname === '/products'
-									? 'inline-flex items-center tracking-wide space-x-1 text-lg font-semibold bg-purple-900 text-white px-4 py-1 rounded-md'
+									? 'inline-flex items-center tracking-wide space-x-1 text-lg font-semibold border-b-4 border-purple-700 '
 									: 'inline-flex items-center tracking-wide space-x-1 text-lg font-semibold text-gray-700 hover:text-gray-400'} `}
 							>
 								Browse Food
@@ -24,7 +24,7 @@ export default function DesktopHeader({ user, isOpen, setIsOpen }) {
 						<Link href="/favourites">
 							<a
 								className={`${router.pathname === '/favourites'
-									? 'inline-flex items-center space-x-1 text-lg font-semibold tracking-wide  bg-purple-900 text-white px-4 py-1 rounded-md'
+									? 'inline-flex items-center space-x-1 text-lg font-semibold tracking-wide  border-b-4 border-purple-700 '
 									: 'inline-flex items-center space-x-1 text-lg font-semibold tracking-wide  text-gray-700 hover:text-gray-400'} `}
 							>
 								{/* <FavouriteIcon /> */}
@@ -45,11 +45,22 @@ export default function DesktopHeader({ user, isOpen, setIsOpen }) {
 						<UserMenu user={user} isOpen={isOpen} setIsOpen={setIsOpen} />
 					</div>
 				) : (
-					<Link href="/api/auth/login">
-						<a className="px-4 py-1 text-lg font-sm text-white  bg-gray-900 hover:bg-gray-500 rounded-md">
-							Login
-						</a>
-					</Link>
+					<div className="space-x-10">
+						<Link href="/products">
+							<a
+								className={`${router.pathname === '/products'
+									? 'inline-flex items-center tracking-wide space-x-1 text-lg font-semibold border-b-4 border-purple-700 '
+									: 'inline-flex items-center tracking-wide space-x-1 text-lg font-semibold text-gray-700 hover:text-gray-400'} `}
+							>
+								Browse Food
+							</a>
+						</Link>
+						<Link href="/api/auth/login">
+							<a className="px-4 py-1 text-lg font-sm text-white  bg-gray-900 hover:bg-gray-500 rounded-md">
+								Login
+							</a>
+						</Link>
+					</div>
 				)}
 			</nav>
 		</div>

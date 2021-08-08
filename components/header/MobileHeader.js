@@ -61,12 +61,21 @@ export default function MobileHeader({ isOpen, setIsOpen, user }) {
 									</div>
 								</div>
 							) : (
-								<Link href="/api/auth/login">
-									<a className="flex items-center space-x-4">
-										<LoginIcon />
-										<h3 className=" text-xl font-sm text-gray-900 tracking-wide">Login</h3>
-									</a>
-								</Link>
+								<div className="space-y-8">
+									<Link href="/products">
+										<a className="flex items-center space-x-4" onClick={() => setIsOpen(!isOpen)}>
+											<h3 className=" text-xl font-sm text-gray-900 tracking-wide ">
+												Browse Food
+											</h3>
+										</a>
+									</Link>
+									<Link href="/api/auth/login">
+										<a className="flex items-center space-x-4">
+											<LoginIcon />
+											<h3 className=" text-xl font-sm text-gray-900 tracking-wide">Login</h3>
+										</a>
+									</Link>
+								</div>
 							)}
 						</nav>
 					</div>

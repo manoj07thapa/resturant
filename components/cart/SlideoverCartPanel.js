@@ -2,7 +2,6 @@ import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import CartDetail from './CartDetail';
 import { DotLoader } from 'react-spinners';
-import { GetCart } from '../../dbQuery/getCart';
 import router from 'next/router';
 
 export default function SlideoverCartPanel({ addToCart, cartItems }) {

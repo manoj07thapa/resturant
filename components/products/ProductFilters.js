@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Formik, Form, useFormikContext, Field } from 'formik';
-import * as yup from 'yup';
 import router, { useRouter } from 'next/router';
 import { getAsString } from '../../utils/getAsString';
-import CategorySelect from './CategorySelect';
-
-const ValueChangeListener = () => {
+import RangeSlider from './RangeSlider';
+const ValueChangeListener = ({ value }) => {
 	const { submitForm, values } = useFormikContext();
-	const { value } = values;
+	// const { value } = values;
 
 	useEffect(
 		() => {
@@ -15,34 +13,41 @@ const ValueChangeListener = () => {
 				submitForm();
 			}
 		},
-		[ values, submitForm ]
+		[ values, submitForm, value ]
 	);
 
 	return null;
 };
 
-const submitMyForm = (values) => {
-	console.log('Values', values);
-	router.push(
-		{
-			pathname: '/products',
-			query: { ...values, page: 1 }
-		},
-		undefined,
-		{ shallow: true }
-	);
-};
+const ProductFilters = ({ categories, foodType, criteria }) => {
+	const [ value, setValue ] = useState(1000);
 
-const ProductFilters = ({ categories }) => {
 	const { query } = useRouter();
+	console.log('QUERY', query);
 	const [ isOpen, setIsOpen ] = useState(true);
+	const handleRangeChange = (e) => setValue(e.target.value);
 
 	const initialValues = {
-		category: query.category || 'all'
+		category: getAsString(query.category),
+		format: getAsString(query.format) || 'all',
+		criteria: getAsString(query.criteria) || 'all'
+		// price: 1000
+	};
+
+	const submitMyForm = (values) => {
+		router.push(
+			{
+				pathname: '/products',
+				query: { ...values, value, page: 1 }
+			},
+			undefined,
+			{ shallow: true }
+		);
+		console.log('Values', values);
 	};
 	return (
-		<div className="xl:w-72 ">
-			<div className="px-3 py-2 bg-gray-900 xl:hidden">
+		<div className="">
+			<div className="px-3 py-2 bg-gray-900 sm:hidden">
 				<button
 					type="submit"
 					onClick={() => setIsOpen(!isOpen)}
@@ -56,9 +61,10 @@ const ProductFilters = ({ categories }) => {
 				<Formik initialValues={initialValues} onSubmit={submitMyForm}>
 					{({ values, handleChange, errors }) => {
 						return (
-							<Form className="px-3 xl:px-2 space-y-4 bg-gray-800 pt-5  ">
-								<div className="lg:flex xl:block    ">
-									<div className="   md:flex lg:block py-4 md:items-center justify-between md:space-x-2 lg:space-x-0 lg:w-1/3 xl:w-full  ">
+							<Form className="px-3  space-y-4 bg-gray-800  pt-5  ">
+								{console.log(values)}
+								<div className="lg:flex    ">
+									{/* <div className="md:flex lg:block py-4 md:items-center justify-between md:space-x-2 lg:space-x-0 lg:w-1/3   ">
 										<label htmlFor=" category" className=" block space-y-1  md:w-1/2 lg:w-full">
 											<span className="text-sm font-medium text-gray-500">Category</span>
 											<Field
@@ -78,120 +84,119 @@ const ProductFilters = ({ categories }) => {
 												))}
 											</Field>
 										</label>
-
-										<div className=" flex space-x-2 md:w-1/2 lg:w-full lg:mt-1 xl:w-full">
-											<label htmlFor="make" className="w-1/2  block space-y-1">
-												<span className="text-sm font-medium text-gray-500">Make</span>
-												<Field
-													as="select"
-													name="make"
-													id="make"
-													className="w-full rounded-md shadow bg-gray-700 text-white focus:text-white"
-												>
-													<option value="make1" className="bg-gray-700 text-white">
-														make1
-													</option>
-													<option value="make2" className="bg-gray-700 text-white">
-														make2
-													</option>
-													<option value="make3" className="bg-gray-700 text-white">
-														make3
-													</option>
-												</Field>
-											</label>
-											<label htmlFor="model" className="w-1/2 block space-y-1 lg:w-1/2  ">
-												<span className="text-sm font-medium text-gray-500">Model</span>
-												<Field
-													as="select"
-													name="model"
-													id="model"
-													className="w-full rounded-md shadow bg-gray-700 text-white focus:text-white"
-												>
-													<option value="model1" className="bg-gray-700 text-white">
-														model1
-													</option>
-													<option value="make2" className="bg-gray-700 text-white">
-														model2
-													</option>
-													<option value="model3" className="bg-gray-700 text-white">
-														model3
-													</option>
-												</Field>
-											</label>
-										</div>
-									</div>
-									<div className="space-y-1 py-4 border-t border-gray-900 lg:w-1/3 xl:w-full lg:ml-9 xl:ml-0 lg:border-l lg:px-7 xl:px-0 xl:border-l-0  ">
-										<span className=" block text-sm font-medium text-gray-500">Food type</span>
+									</div> */}
+									<div className="space-y-1 py-4 border-t border-gray-900 lg:w-1/4 lg:ml-9  lg:border-t-0 lg:pt-0 ">
+										<span className=" block text-medium font-medium text-white">Dietry</span>
 										<div className="flex items-center justify-between  md:flex-wrap  ">
-											<label htmlFor="foodType" className="space-x-1 md:w-1/4 lg:w-full ">
+											<label htmlFor="foodType" className="space-x-2 md:w-1/4 lg:w-full ">
 												<Field
 													type="radio"
 													className="shadow bg-gray-700 "
-													name="foodType"
+													name="format"
+													value="all"
 													onChange={handleChange}
 												/>
-												<span className="text-white text-sm">All</span>
+												<span className="text-gray-400 text-sm">All</span>
 											</label>
-											<label htmlFor="foodType" className="space-x-1 md:w-1/4 lg:w-full ">
-												<Field
-													type="radio"
-													className="shadow bg-gray-700"
-													name="foodType"
-													onChange={handleChange}
-												/>
-												<span className="text-white text-sm">Vegeterian</span>
-											</label>
-											<label htmlFor="foodType" className="space-x-1 md:w-1/4 lg:w-full">
-												<Field
-													type="radio"
-													className="shadow bg-gray-700"
-													name="foodType"
-													onChange={handleChange}
-												/>
-												<span className="text-white text-sm">Vegan</span>
-											</label>
-											<label htmlFor="foodType" className="space-x-1 md:w-1/4 lg:w-full">
-												<Field
-													type="radio"
-													className="shadow bg-gray-700"
-													name="foodType"
-													onChange={handleChange}
-												/>
-												<span className="text-white text-sm">Non-vegeterian</span>
-											</label>
+											{foodType.map((ft, i) => (
+												<label
+													htmlFor="foodType"
+													className="space-x-2 md:w-1/4 lg:w-full "
+													key={i}
+												>
+													<Field
+														type="radio"
+														className="shadow bg-gray-700"
+														name="format"
+														value={ft._id}
+														onChange={handleChange}
+													/>
+													<span className="text-gray-400 text-sm">{ft._id}</span>
+												</label>
+											))}
 										</div>
 									</div>
-									<div className="pt-4 border-t border-gray-900 mb-4 lg:w-1/3 xl:w-full xl:border-l-0 lg:border-l lg:pl-7 xl:pl-0 ">
-										<span className=" block text-sm font-medium text-gray-500">Food category</span>
+									<div className="space-y-1 py-4 border-t border-gray-900 lg:w-1/4 lg:ml-9 lg:border-l lg:px-7 lg:border-t-0 lg:pt-0  ">
+										<span className=" block text-medium font-medium text-white">Sort By</span>
+										<div className="flex items-center justify-between  md:flex-wrap  ">
+											<label htmlFor="criteria" className="space-x-2 md:w-1/4 lg:w-full ">
+												<Field
+													type="radio"
+													className="shadow bg-gray-700 "
+													name="criteria"
+													value="all"
+													onChange={handleChange}
+												/>
+												<span className="text-gray-400 text-sm ">All</span>
+											</label>
+											{criteria.map((ct, i) => (
+												<label
+													key={i}
+													htmlFor="popular"
+													className="space-x-2 md:w-1/4 lg:w-full "
+												>
+													<Field
+														id="popular"
+														type="radio"
+														className="shadow bg-gray-700 "
+														name="criteria"
+														onChange={handleChange}
+														value={ct._id}
+													/>
+													<span className="text-gray-400 text-sm ">{ct._id}</span>
+												</label>
+											))}
+										</div>
+									</div>
+									<div className="pt-4 border-t border-gray-900 mb-4 lg:w-full  lg:border-l lg:pl-7 lg:border-t-0 lg:pt-0 ">
+										<span className=" block text-medium font-medium text-white">Food category</span>
 										<div className="flex flex-col md:flex-row md:items-center md:flex-wrap space-y-1 mt-1 md:space-y-0  ">
 											{categories.map((c) => (
-												<label htmlFor="" className="space-x-2 md:w-1/4 lg:w-1/2  " key={c._id}>
+												<label htmlFor="" className="space-x-2 md:w-1/4 lg:w-1/3  " key={c._id}>
 													<Field
 														type="checkbox"
 														className="shadow bg-gray-700 "
 														value={c._id}
 														name="category"
 														onChange={handleChange}
+														checked={query.category === c._id ? true : false}
 													/>
-													<span className="text-white text-sm">{c._id}</span>
+													<span className="text-gray-400 text-sm">{c._id}</span>
 												</label>
 											))}
 										</div>
 									</div>
+									<div className="space-y-1 py-4 border-t border-gray-900 lg:w-1/3 lg:ml-9 lg:border-l lg:px-7  lg:border-t-0 lg:pt-0 ">
+										<span className=" block text-medium font-medium text-white mb-5">Price</span>
+										<div className="flex items-center justify-between  md:flex-wrap  ">
+											<div className="flex items-center">
+												<input
+													type="range"
+													min={100}
+													max={2000}
+													step={2}
+													value={value}
+													onChange={handleRangeChange}
+												/>
+												<div className="text-gray-400 ml-2 mb-1">Rs.{value}</div>
+											</div>
+										</div>
+									</div>
+									{/* <RangeSlider name="price" type="range" label="Price" min={100} max={1000} /> */}
 								</div>
-								<div className=" pb-4 pt-3 mt-4 md:text-right border-t border-gray-900">
+								<div className="sm:hidden pb-4 pt-3 mt-4 md:text-right border-t border-gray-900">
 									<button
 										type="submit"
 										onClick={() => {
 											setIsOpen(!isOpen);
 										}}
-										className="bg-purple-900 hover:bg-purple-500 px-4 py-2 block w-full md:w-auto md:inline-block  rounded-md shadow text-white font-medium tracking-wideer uppercase focus:outline-none xl:block xl:w-full "
+										className="bg-purple-900 hover:bg-purple-500 px-4 py-2 block w-full md:w-auto md:inline-block  rounded-md shadow text-white font-medium tracking-wideer uppercase focus:outline-none "
 									>
 										Apply filters
 									</button>
 								</div>
 
-								<ValueChangeListener />
+								<ValueChangeListener value={value} />
 							</Form>
 						);
 					}}

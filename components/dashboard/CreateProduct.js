@@ -13,11 +13,9 @@ export default function CreateProduct({ categories }) {
 		format: [],
 		ingredients: [ '' ],
 		discount: 0,
-		chefSpecial: false,
 		price: 0,
 		description: '',
-		popular: false,
-		speciality: false,
+		criteria: [],
 		files: [ {} ]
 	};
 	const handleSubmit = async (values, actions) => {
@@ -105,7 +103,7 @@ export default function CreateProduct({ categories }) {
 								</label>
 							</div>
 							<div className="flex items-center justify-between w-full mt-3">
-								<label htmlFor="category " className="w-2/3">
+								<label htmlFor="category " className="w-full">
 									<span className="block text-sm font-semibold text-gray-500 mb-1">
 										Choose a category
 									</span>
@@ -127,15 +125,6 @@ export default function CreateProduct({ categories }) {
 									<div className="text-red-500 text-xs mt-1">
 										{errors.category && errors.category}
 									</div>
-								</label>
-								<label htmlFor="chefSpecial">
-									<Field
-										type="checkbox"
-										name="chefSpecial"
-										id="chefSpecial"
-										className=" focus:outline-none focus:border-purple-500 focus:ring-purple-500 "
-									/>
-									<span className=" text-sm font-semibold text-gray-500 ml-2">Chef Special</span>
 								</label>
 							</div>
 							<div className="flex mt-3 items-center justify-between ">
@@ -239,7 +228,8 @@ export default function CreateProduct({ categories }) {
 								<label htmlFor="popular">
 									<Field
 										type="checkbox"
-										name="popular"
+										name="criteria"
+										value="Popular"
 										id="popular"
 										className=" focus:outline-none focus:border-purple-500 focus:ring-purple-500 "
 									/>
@@ -248,11 +238,22 @@ export default function CreateProduct({ categories }) {
 								<label htmlFor="speciality">
 									<Field
 										type="checkbox"
-										name="speciality"
+										name="criteria"
+										value="Speciality"
 										id="speciality"
 										className=" focus:outline-none focus:border-purple-500 focus:ring-purple-500 "
 									/>
 									<span className=" text-sm font-semibold text-gray-500 ml-2">Speciality</span>
+								</label>
+								<label htmlFor="chefSpecial">
+									<Field
+										type="checkbox"
+										name="criteria"
+										value="Chef Special"
+										id="chefSpecial"
+										className=" focus:outline-none focus:border-purple-500 focus:ring-purple-500 "
+									/>
+									<span className=" text-sm font-semibold text-gray-500 ml-2">Chef Special</span>
 								</label>
 							</div>
 

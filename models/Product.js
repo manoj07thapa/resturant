@@ -22,9 +22,7 @@ const ProductSchema = new mongoose.Schema({
 		type: Array,
 		required: true
 	},
-	chefSpecial: Boolean,
-	popular: Boolean,
-	speciality: Boolean,
+	criteria: { type: Array },
 	price: {
 		type: Number,
 		required: true

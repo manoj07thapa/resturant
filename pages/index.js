@@ -59,7 +59,7 @@ export const getStaticProps = async (ctx) => {
 	const popularContent = JSON.parse(JSON.stringify(popularRes));
 	const chefContent = JSON.parse(JSON.stringify(chefRes));
 
-	const pres = await Product.find({}).limit(10);
+	const pres = await Product.find({ criteria: 'Speciality' }).limit(10);
 	const products = JSON.parse(JSON.stringify(pres));
 
 	return {

@@ -33,6 +33,7 @@ const getProducts = async (req, res) => {
 };
 
 const createProduct = async (req, res) => {
+	console.log(req.body.values);
 	const {
 		category,
 		title,
@@ -40,11 +41,9 @@ const createProduct = async (req, res) => {
 		ingredients,
 		format,
 		discount,
-		chefSpecial,
+		criteria,
 		price,
 		description,
-		popular,
-		speciality,
 		files
 	} = req.body.values;
 	try {
@@ -55,11 +54,9 @@ const createProduct = async (req, res) => {
 			ingredients,
 			format,
 			discount,
-			chefSpecial,
 			price,
 			description,
-			popular,
-			speciality,
+			criteria,
 			files
 		}).save();
 		res.status(201).json({ message: 'Product created' });

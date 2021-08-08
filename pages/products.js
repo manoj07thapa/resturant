@@ -4,6 +4,8 @@ import ProductCard from '../components/products/ProductCard';
 import dbConnect from '../utils/dbConnect';
 import { getPaginatedProducts } from '../dbQuery/getPaginatedProducts';
 import { getCategories } from '../dbQuery/getCategories';
+import { getFoodType } from '../dbQuery/getFoodType';
+import { getCriteria } from '../dbQuery/getCriteria';
 import { useState } from 'react';
 import deepEqual from 'fast-deep-equal';
 import useSwr from 'swr';
@@ -14,7 +16,7 @@ import Head from 'next/head';
 import { DotLoader } from 'react-spinners';
 import Footer from '../components/footer/Footer';
 
-export default function Products({ products, categories, totalPages }) {
+export default function Products({ products, categories, totalPages, foodType, criteria }) {
 	const { query } = useRouter();
 
 	const [ serverQuery ] = useState(query);
@@ -26,7 +28,7 @@ export default function Products({ products, categories, totalPages }) {
 
 	if (!data || !products) {
 		return (
-			<div className="flex items-center justify-center ">
+			<div className="flex items-center justify-center mt-72  ">
 				<DotLoader color="#2a9d8f" />
 			</div>
 		);
@@ -40,14 +42,14 @@ export default function Products({ products, categories, totalPages }) {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<div className="xl:flex   ">
-				<div className="xl:fixed xl:h-full ">
-					<ProductFilters categories={categories} className="" />
+			<div className=" ">
+				<div className="">
+					<ProductFilters categories={categories} className="" foodType={foodType} criteria={criteria} />
 				</div>
 
-				<div className="lg:p-12 xl:flex-1 xl:ml-72  ">
+				<div className="lg:p-12 p-3 mt-3 lg:mt-0 ">
 					<div className=" ">
-						<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-x-7 gap-y-20 ">
+						<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-x-7 gap-y-20 ">
 							{(data.products || [])
 								.map((product) => <ProductCard product={product} key={product._id} />)}
 						</div>
@@ -65,14 +67,38 @@ export default function Products({ products, categories, totalPages }) {
 export const getServerSideProps = async (ctx) => {
 	await dbConnect();
 
-	const [ pagination, categories ] = await Promise.all([ getPaginatedProducts(ctx.query), getCategories() ]);
+	const [ pagination, categories, foodType, criteria ] = await Promise.all([
+		getPaginatedProducts(ctx.query),
+		getCategories(),
+		getFoodType(),
+		getCriteria()
+	]);
 	const ssProducts = JSON.parse(JSON.stringify(pagination.products));
 
 	return {
 		props: {
 			products: ssProducts,
 			totalPages: pagination.totalPages,
-			categories
+			categories,
+			foodType,
+			criteria
 		}
 	};
 };
+
+function Animation() {
+	return (
+		<div className="border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto">
+			<div className="animate-pulse flex space-x-4">
+				<div className="rounded-full bg-blue-400 h-12 w-12" />
+				<div className="flex-1 space-y-4 py-1">
+					<div className="h-4 bg-blue-400 rounded w-3/4" />
+					<div className="space-y-2">
+						<div className="h-4 bg-blue-400 rounded" />
+						<div className="h-4 bg-blue-400 rounded w-5/6" />
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+}

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import EditShipInfoModel from '../components/shipping/EditShipInfoModel';
-import { withPageAuthRequired } from '@auth0/nextjs-auth0';
+import { withPageAuthRequired,getSession } from '@auth0/nextjs-auth0';
 import { GetCart } from '../dbQuery/getCart';
 import { DotLoader } from 'react-spinners';
 import Head from 'next/head';
@@ -11,7 +11,8 @@ import Footer from '../components/footer/Footer';
 import Image from 'next/image';
 import CheckoutIcon from '../public/iconmonstr-checkout-2.svg';
 import CheckoutItemsInfo from '../components/checkout/CheckoutItemsInfo';
-
+import router from 'next/router';
+import ShipInfo from '../models/ShipInfo'
 export default withPageAuthRequired(function Checkout() {
 	const { cart, isLoading, isError } = GetCart();
 	const { shipInfo, shipLoading, shipError, mutate } = GetShipInfo();
@@ -19,8 +20,8 @@ export default withPageAuthRequired(function Checkout() {
 
 	if (isLoading || shipLoading)
 		return (
-			<div className="flex">
-				<DotLoader />
+			<div className="flex items-center justify-center mt-72 ">
+				<DotLoader color="#2a9d8f" />
 			</div>
 		);
 
@@ -47,22 +48,25 @@ export default withPageAuthRequired(function Checkout() {
 				</div>
 				<div className="lg:grid lg:grid-cols-3 gap-9 mt-7">
 					<div className="lg:col-span-2 ">
-						<div className="lg:flex lg:justify-between bg-gray-100 py-5 px-4">
-							<h3 className="text-lg font-bold uppercase tracking-wider text-gray-700">
-								Make your payment using
-							</h3>
-							<div className="flex space-x-3 mt-2 lg:mt-0">
-								<Khalti products={checkedCart} totalAmt={subTotal} />
+						{checkedCart.length !== 0 && (
+							<div className="lg:flex lg:justify-between bg-gray-100 py-5 px-4">
+								<h3 className="text-lg font-bold uppercase tracking-wider text-gray-700">
+									Make your payment using
+								</h3>
+								<div className="flex space-x-3 mt-2 lg:mt-0">
+									<Khalti products={checkedCart} totalAmt={subTotal} />
 
-								<Esewa />
-								<button
-									type="submit"
-									className="px-5 py-2 bg-gray-300 rounded-md shadow text-gray-800 text-medium"
-								>
-									Cash on delivery
-								</button>
+									<Esewa />
+									<button
+										type="submit"
+										className="px-5 py-2 bg-gray-300 rounded-md shadow text-gray-800 text-medium"
+									>
+										Cash on delivery
+									</button>
+								</div>
 							</div>
-						</div>
+						)}
+
 						<div className="lg:flex lg:justify-between bg-gray-100 py-5 px-4 mt-3">
 							<h3 className="text-medium font-bold uppercase tracking-wider text-gray-700">
 								Delivery zone
@@ -130,7 +134,19 @@ export default withPageAuthRequired(function Checkout() {
 						</div>
 					</div>
 					<div className="bg-gray-100 mt-5 lg:mt-0 ">
-						<CheckoutItemsInfo checkedCart={checkedCart} />
+						{checkedCart.length !== 0 ? (
+							<CheckoutItemsInfo checkedCart={checkedCart} />
+						) : (
+							<div className="text-center mt-5 text-lg font-semibold">
+								Please select dish in cart you want to purchase
+								<button
+									onClick={() => router.push('/cart')}
+									className="text-sm uppercase tracking-wide border-2 border-gray-400 mt-2 px-4 py-2 rounded-md"
+								>
+									Go to cart
+								</button>
+							</div>
+						)}
 					</div>
 				</div>
 			</div>
@@ -139,3 +155,25 @@ export default withPageAuthRequired(function Checkout() {
 		</Fragment>
 	);
 });
+
+
+export async function getServerSideProps(ctx) {
+	const session = getSession(ctx.req, ctx.res);
+	const user =  session?.user
+	const ship = await ShipInfo.findOne({email:user.email})
+
+	console.log(ship)
+
+	if(ship === null){
+		return {
+			redirect: {
+				destination: '/shippingInfo',
+				permanent: false
+			}
+		};
+	}
+
+	return {
+		props: {}
+	};
+}

@@ -36,13 +36,13 @@ export default function UserMenu({ isOpen, setIsOpen, user }) {
 							leaveFrom="transform opacity-100 scale-100"
 							leaveTo="transform opacity-0 scale-95"
 						>
-							<Menu.Items className="absolute right-0 w-56  origin-top-left  bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+							<Menu.Items className="absolute  md:right-0  w-56  origin-top-left  bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
 								<div className="px-1 py-1 ">
 									<Menu.Item>
 										{({ active }) => (
 											<button
 												onClick={() => {
-													router.push('/profile');
+													router.push('/dashboard');
 												}}
 												className={`${active
 													? 'bg-purple-300 text-white'
@@ -53,7 +53,7 @@ export default function UserMenu({ isOpen, setIsOpen, user }) {
 												) : (
 													<EditInactiveIcon className="w-5 h-5 mr-2" aria-hidden="true" />
 												)}
-												Profile
+												Dashboard
 											</button>
 										)}
 									</Menu.Item>

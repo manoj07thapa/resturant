@@ -47,7 +47,7 @@ export default function Sidebar() {
 									>
 										<a
 											className={`${query === 'create-product'
-												? 'ml-1 px-4 py-2 rounded-md text-sm text-gray-600 hover:text-white font-medium bg-purple-200 hover:bg-purple-300'
+												? 'ml-1 px-4 py-2 rounded-md text-sm text-gray-600 hover:text-white font-medium bg-purple-200 hover:bg-purple-300 border-l-4 border-purple-500'
 												: 'ml-1 px-4 py-2 rounded-md text-sm text-gray-600 hover:text-white font-medium hover:bg-purple-300'}`}
 										>
 											Add Product
@@ -61,7 +61,7 @@ export default function Sidebar() {
 									>
 										<a
 											className={`${query === 'create-resource'
-												? 'ml-1 px-4 py-2 rounded-md text-sm text-gray-600 hover:text-white font-medium bg-purple-200 hover:bg-purple-300'
+												? 'ml-1 px-4 py-2 rounded-md text-sm text-gray-600 hover:text-white font-medium bg-purple-200 hover:bg-purple-300 border-l-4 border-purple-500'
 												: 'ml-1 px-4 py-2 rounded-md text-sm text-gray-600 hover:text-white font-medium hover:bg-purple-300'}`}
 										>
 											Add Resource
@@ -75,7 +75,7 @@ export default function Sidebar() {
 									>
 										<a
 											className={`${query === 'create-category'
-												? 'ml-1 px-4 py-2 rounded-md text-sm text-gray-600 hover:text-white font-medium bg-purple-200 hover:bg-purple-300'
+												? 'ml-1 px-4 py-2 rounded-md text-sm text-gray-600 hover:text-white font-medium bg-purple-200 hover:bg-purple-300 border-l-4 border-purple-900'
 												: 'ml-1 px-4 py-2 rounded-md text-sm text-gray-600 hover:text-white font-medium hover:bg-purple-300'}`}
 										>
 											Add Product category

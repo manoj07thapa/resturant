@@ -1,16 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
-import axios from 'axios';
-
+import { addToFavourite } from '../../utils/addToFavourite';
+import Favourite from '../icons/Favourite';
+import DiscountPrice from './DiscountPrice';
 export default function ImageDisplay({ product }) {
-	const addToFavourite = async (product) => {
-		try {
-			const res = await axios.put(`/api/favourite`, product);
-			alert(res.data.message);
-		} catch (error) {
-			console.log(error);
-		}
-	};
 	return (
 		<div className="md:col-span-2">
 			<div className="flex justify-between">
@@ -53,24 +46,16 @@ export default function ImageDisplay({ product }) {
 					</p>
 				</div>
 				<div>
-					<p className="text-sm font-lg">
-						Rs: {product.price}
-						<span className="text-xs text-gray-500 pl-0.5">/plate</span>
-					</p>
-					<button className="pt-1" type="submit" onClick={() => addToFavourite(product)}>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							className="h-5 w-5 text-gray-400 hover:text-gray-700 active:text-red-700 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-red-500 active:bg-red-600 hover:-translate-y-0.5 transform transition"
-							viewBox="0 0 20 20"
-							fill="currentColor"
-						>
-							<path
-								fillRule="evenodd"
-								d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-								clipRule="evenodd"
-							/>
-						</svg>
-					</button>
+					{product.discount === 0 ? (
+						<div className="text-medium font-lg text-gray-700 ">
+							Rs. {product.price} <span className="text-xs text-gray-500 mb-0.5 ">/plate</span>
+						</div>
+					) : (
+						<div className="">
+							<DiscountPrice price={product.price} discount={product.discount} />
+							<div className="text-sm text-gray-400  line-through">Rs.{product.price}</div>
+						</div>
+					)}
 				</div>
 			</div>
 			<div className="mt-5 relative">
@@ -84,12 +69,14 @@ export default function ImageDisplay({ product }) {
 					quality={30}
 					className="rounded-md shadow  "
 				/>
-				<div className="mt-3 absolute top-0 right-0 mr-2">
-					{product.chefSpecial && (
-						<p className="text-xs  text-center px-1 py-1 rounded-full shadow bg-purple-500 text-white">
-							chef special
-						</p>
-					)}
+
+				<div className="absolute top-0 left-0 bg-gray-100 rounded-full px-2 py-1 ml-1 mt-1 text-center shadow">
+					<button className="pt-1 focus:outline-none " type="submit" onClick={() => addToFavourite(product)}>
+						<Favourite />
+					</button>
+				</div>
+				<div className="absolute bottom-0 right-0 text-white mr-2 mb-2 bg-purple-600 text-xs px-2 py-1 rounded-full shadow">
+					{product.criteria && <div>{product.criteria[0]}</div>}
 				</div>
 			</div>
 		</div>

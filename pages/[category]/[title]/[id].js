@@ -1,8 +1,6 @@
 import React, { Fragment } from 'react';
 import Product from '../../../models/Product';
 import dbConnect from '../../../utils/dbConnect';
-import Link from 'next/link';
-import { GetStaticProps, GetStaticPaths } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { DotLoader } from 'react-spinners';
@@ -10,18 +8,21 @@ import ImageDisplay from '../../../components/product/ImageDisplay';
 import ProductInfo from '../../../components/product/ProductInfo';
 import Speciality from '../../../components/home/Speciality';
 import Footer from '../../../components/footer/Footer';
+import AnimateLoading from '../../../components/icons/AnimateLoading';
 
 export default function SingleProduct({ product, suggested }) {
 	const router = useRouter();
 
-	if (!product) {
-		return <p>Product doesnot exist</p>;
-	}
+	// if (!product) {
+	// 	return <p>Product doesnot exist</p>;
+	// }
 
-	if (router.isFallback) {
-		<div className="flex">
-			<DotLoader />
-		</div>;
+	if (router.isFallback || !product || !suggested) {
+		return (
+			<div className="flex items-center justify-center mt-72 ">
+				<DotLoader color="#2a9d8f" />
+			</div>
+		);
 	}
 
 	return (
@@ -36,11 +37,13 @@ export default function SingleProduct({ product, suggested }) {
 				<ImageDisplay product={product} />
 				<ProductInfo product={product} />
 			</div>
-			<div className="mt-32  px-3 md:px-12">
-				<h3 className=" pt-6  text-md font-bold  uppercase">You might also like</h3>
+			{suggested.length !== 0 && (
+				<div className="mt-32  px-3 md:px-12">
+					<h3 className=" pt-6  text-md font-bold  uppercase">You might also like</h3>
 
-				<Speciality products={suggested} />
-			</div>
+					<Speciality products={suggested} />
+				</div>
+			)}
 			<Footer />
 		</Fragment>
 	);
@@ -55,7 +58,7 @@ export const getStaticProps = async (ctx) => {
 	const productPromise = Product.findById(id).lean();
 
 	//querying for similar products suggestion in individual product page
-	const resPromise = Product.find({ category }).limit(10);
+	const resPromise = Product.find({ category, _id: { $nin: [ id ] } }).limit(10);
 
 	try {
 		const [ product, res ] = await Promise.all([ productPromise, resPromise ]);
