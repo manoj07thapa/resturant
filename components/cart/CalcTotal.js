@@ -6,7 +6,9 @@ export default function CalcTotal({ checkedCart }) {
 	const calcTotal = (checkedCart) => {
 		let subTotal = 0;
 		checkedCart.map((p) => {
-			subTotal += p.product.price * p.quantity;
+			subTotal += Math.ceil(
+				p.product.price * p.quantity - p.product.discount / 100 * (p.product.price * p.quantity)
+			);
 		});
 		setSubTotal(subTotal);
 	};

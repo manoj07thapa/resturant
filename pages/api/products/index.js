@@ -1,16 +1,13 @@
 import dbConnect from '../../../utils/dbConnect';
 import Product from '../../../models/Product';
 import { productSchema } from '../../../middlewares/productSchema';
-import { withApiAuthRequired } from '@auth0/nextjs-auth0';
+import { withApiAuthRequired, getAccessToken } from '@auth0/nextjs-auth0';
 import { validate } from '../../../middlewares/validate';
-import { getPaginatedProducts } from '../../../dbQuery/getPaginatedProducts';
 
 const handler = async (req, res) => {
 	dbConnect();
+
 	switch (req.method) {
-		case 'GET':
-			await getProducts(req, res);
-			break;
 		case 'POST':
 			await createProduct(req, res);
 			break;
@@ -23,17 +20,7 @@ const handler = async (req, res) => {
 	}
 };
 
-const getProducts = async (req, res) => {
-	try {
-		const products = await getPaginatedProducts(req.query);
-		res.status(200).json(products);
-	} catch (error) {
-		res.status(400).json({ success: false, error: 'Sorry couldnot find products' });
-	}
-};
-
 const createProduct = async (req, res) => {
-	console.log(req.body.values);
 	const {
 		category,
 		title,

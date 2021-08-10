@@ -61,7 +61,7 @@ export default function ShippingInfoForm({}) {
 
 				<div className="mt-9">
 					<Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={shipInfoSchema}>
-						{({ errors, isSubmitting, isValid, values }) => (
+						{({ errors }) => (
 							<Form>
 								<div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-y-5">
 									<label htmlFor="fullname" className="">

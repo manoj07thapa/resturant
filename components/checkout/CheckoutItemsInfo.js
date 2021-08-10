@@ -3,9 +3,9 @@ import React from 'react';
 import Image from 'next/image';
 import CalcTotal from '../cart/CalcTotal';
 import AnimateLoading from '../icons/AnimateLoading';
+import DiscountPrice from '../product/DiscountPrice';
 
 export default function CheckoutItemsInfo({ checkedCart }) {
-	console.log(checkedCart);
 	return (
 		<div className="py-5 px-4 ">
 			<div className="flex justify-between">
@@ -17,11 +17,11 @@ export default function CheckoutItemsInfo({ checkedCart }) {
 					edit
 				</button>
 			</div>
-			<div className=" mt-4 bg-gray-50 px-2 pb-2 h-96 overflow-y-auto ">
+			<div className=" mt-4 bg-gray-50 px-3 pb-2 h-96 overflow-y-auto ">
 				<div className="   ">
 					{checkedCart.length !== 0 ? (
 						checkedCart.map((cItem) => (
-							<div className="pt-4  " key={cItem._id}>
+							<div className=" border-b border-gray-200 py-5" key={cItem._id}>
 								<Image
 									src={cItem.product.files[0].url}
 									alt="product image"
@@ -32,7 +32,7 @@ export default function CheckoutItemsInfo({ checkedCart }) {
 									className="rounded-md shadow flex-shrink-0  "
 								/>
 								<div className="flex justify-between">
-									<p className="text-medium font-semibold text-gray-600">Rs. {cItem.product.price}</p>
+									<DiscountPrice price={cItem.product.price} discount={cItem.product.discount} />
 									<p className="text-sm font-semibold text-gray-600">Quantity: {cItem.quantity}</p>
 								</div>
 								<p className="text-sm  text-gray-500  ">{cItem.product.title}</p>

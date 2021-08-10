@@ -9,9 +9,20 @@ import Popular from '../components/home/Popular';
 import ChefSpecial from '../components/home/ChefSpecial';
 import Speciality from '../components/home/Speciality';
 import Footer from '../components/footer/Footer';
+import Section3 from '../components/home/Section3';
+import ChefSpecial1 from '../components/home/ChefSpecial1';
+import Link from 'next/link';
+import Arrow from '../components/icons/Arrow';
 
-export default function Home({ heroContent, popularContent, chefContent, products }) {
-	if (!heroContent || !popularContent || !chefContent || !products) {
+export default function Home({
+	heroContent,
+	popularContent,
+	chefContent,
+	specialDishes,
+	popularDishes,
+	ChefSpecDishes
+}) {
+	if (!heroContent || !popularContent || !chefContent || !specialDishes || !popularDishes || !ChefSpecDishes) {
 		return <h1>No content</h1>;
 	}
 
@@ -28,18 +39,41 @@ export default function Home({ heroContent, popularContent, chefContent, product
 					<HeroContent heroContent={heroContent} />
 				</div>
 				<div>
+					<Popular popularContent={popularDishes} />
+				</div>
+				<div>
+					<Section3 popularContent={popularContent} />
+				</div>
+				<div>
 					<HomeBanner />
 				</div>
 				<div>
-					<Popular popularContent={popularContent} />
+					<ChefSpecial1 ChefSpecDishes={ChefSpecDishes} />
 				</div>
 				<div>
 					<ChefSpecial chefContent={chefContent} />
 				</div>
-				<div className="px-5 md:px-12 bg-purple-100 mt-12 sm:mt-16 lg:mt-48 max-w-md mx-auto sm:max-w-xl lg:max-w-full">
-					<h3 className=" pt-6 lg:ml-4 text-md font-bold  uppercase">Our specialities</h3>
+				<div className="px-5 md:px-12 bg-gray-900 mt-12 sm:mt-16 lg:mt-48 max-w-md mx-auto sm:max-w-xl lg:max-w-full">
+					<div className="flex items-center justify-between pt-6">
+						<h3 className="  lg:ml-4 text-2xl font-bold text-gray-200 tracking-wider">Our Specialities</h3>
+						<div>
+							<Link
+								href={{
+									pathname: '/products',
+									query: { criteria: 'Speciality' }
+								}}
+							>
+								<a className="  text-lg font-medium text-gray-200 hover:text-gray-100 flex items-center space-x-3 hover:bg-gray-700 px-3 py-1 rounded-md transition duration-500 ease-in-out ">
+									<span>see all</span>{' '}
+									<div>
+										<Arrow />
+									</div>
+								</a>
+							</Link>
+						</div>
+					</div>
 
-					<Speciality products={products} />
+					<Speciality products={specialDishes} />
 				</div>
 				<div>
 					<Footer />
@@ -54,20 +88,33 @@ export const getStaticProps = async (ctx) => {
 	const res = Resource.find({ category: 'hero' });
 	const res1 = Resource.find({ category: 'popular' });
 	const res2 = Resource.find({ category: 'chefs special' });
-	const [ heroRes, popularRes, chefRes ] = await Promise.all([ res, res1, res2 ]);
+	const res3 = Product.find({ criteria: 'Popular' }).sort('-date').limit(4);
+	const res4 = Product.find({ criteria: 'Chef Special' }).sort('-date').limit(4);
+	const res5 = Product.find({ criteria: 'Speciality' }).sort('-date').limit(10);
+
+	const [ heroRes, popularRes, chefRes, popular, chefSpecial, speciality ] = await Promise.all([
+		res,
+		res1,
+		res2,
+		res3,
+		res4,
+		res5
+	]);
 	const heroContent = JSON.parse(JSON.stringify(heroRes));
 	const popularContent = JSON.parse(JSON.stringify(popularRes));
 	const chefContent = JSON.parse(JSON.stringify(chefRes));
-
-	const pres = await Product.find({ criteria: 'Speciality' }).limit(10);
-	const products = JSON.parse(JSON.stringify(pres));
+	const popularDishes = JSON.parse(JSON.stringify(popular));
+	const ChefSpecDishes = JSON.parse(JSON.stringify(chefSpecial));
+	const specialDishes = JSON.parse(JSON.stringify(speciality));
 
 	return {
 		props: {
 			heroContent,
 			popularContent,
 			chefContent,
-			products
+			popularDishes,
+			ChefSpecDishes,
+			specialDishes
 		},
 		revalidate: 5
 	};

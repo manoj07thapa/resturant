@@ -3,9 +3,9 @@ import Link from 'next/link';
 
 export default function HomeBanner() {
 	return (
-		<div className="mt-9 md:mt-7 lg:mt-48 px-5 py-12 bg-pink-200  ">
+		<div className="mt-12 lg:mt-36 px-5 py-12 bg-pink-200  bg-gradient-to-r from-yellow-400/30 via-purple-500/30 to-pink-500/30">
 			<div className="max-w-lg mx-auto">
-				<h1 className="text-2xl md:text-3xl font-semibold text-gray-900 text-center">
+				<h1 className="text-xl md:text-3xl font-semibold text-gray-900 text-center">
 					Become our member and eat for less.
 				</h1>
 				<p className="px-3 text-md mt-2 text-gray-700 text-center">

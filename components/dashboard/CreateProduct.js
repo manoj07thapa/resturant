@@ -19,8 +19,12 @@ export default function CreateProduct({ categories }) {
 		files: [ {} ]
 	};
 	const handleSubmit = async (values, actions) => {
+		const headers = {
+			'Content-Type': 'application/json',
+			Authorization: 'JWT fefege...'
+		};
 		try {
-			const res = await axios.post('/api/products', { values });
+			const res = await axios.post('/api/products', { values }, { headers });
 			alert(res.data.message);
 			if (res.status === 201) {
 				actions.resetForm();

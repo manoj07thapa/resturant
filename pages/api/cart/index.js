@@ -1,10 +1,9 @@
 import Cart from '../../../models/Cart';
 import dbConnect from '../../../utils/dbConnect';
 import Product from '../../../models/Product';
-import { NextApiRequest, NextApiResponse } from 'next';
 import { withApiAuthRequired, getSession } from '@auth0/nextjs-auth0';
 
-export default withApiAuthRequired(async function cart(req: NextApiRequest, res: NextApiResponse) {
+export default withApiAuthRequired(async function cart(req, res) {
 	await dbConnect();
 	switch (req.method) {
 		case 'PUT':
@@ -19,7 +18,7 @@ export default withApiAuthRequired(async function cart(req: NextApiRequest, res:
 	}
 });
 
-const addProduct = async (req: NextApiRequest, res: NextApiResponse) => {
+const addProduct = async (req, res) => {
 	const session = getSession(req, res);
 	const user =  session?.user
 
@@ -41,7 +40,7 @@ const addProduct = async (req: NextApiRequest, res: NextApiResponse) => {
 
 		/**checking if the product id from client exist in product array of cart colection */
 
-		const productExists = cart.products.some((pdoc: any) => productId === pdoc.product.toString());
+		const productExists = cart.products.some((pdoc) => productId === pdoc.product.toString());
 
 		if (productExists) {
 			const cp = await Cart.findOneAndUpdate(
@@ -66,7 +65,7 @@ const addProduct = async (req: NextApiRequest, res: NextApiResponse) => {
 	}
 };
 
-const removeProduct = async (req: NextApiRequest, res: NextApiResponse) => {
+const removeProduct = async (req, res) => {
 	const session = getSession(req, res);
 	const user =  session?.user
 
@@ -84,7 +83,7 @@ const removeProduct = async (req: NextApiRequest, res: NextApiResponse) => {
 	}
 };
 
-const getCartByUser = async (req: NextApiRequest, res: NextApiResponse) => {
+const getCartByUser = async (req, res) => {
 	const session = getSession(req, res);
 	const user =  session?.user
 	try {

@@ -1,10 +1,9 @@
 import Favourite from '../../../models/Favourite';
 import dbConnect from '../../../utils/dbConnect';
 import Product from '../../../models/Product';
-import { NextApiRequest, NextApiResponse } from 'next';
 import { withApiAuthRequired, getSession } from '@auth0/nextjs-auth0';
 
-export default withApiAuthRequired(async function cart(req: NextApiRequest, res: NextApiResponse) {
+export default withApiAuthRequired(async function cart(req, res) {
 	await dbConnect();
 	switch (req.method) {
 		case 'PUT':
@@ -19,7 +18,7 @@ export default withApiAuthRequired(async function cart(req: NextApiRequest, res:
 	}
 });
 
-const addToFavourite = async (req: NextApiRequest, res: NextApiResponse) => {
+const addToFavourite = async (req, res) => {
 	const session = getSession(req, res);
 	const user =  session?.user
 	const product = req.body;
@@ -36,7 +35,7 @@ const addToFavourite = async (req: NextApiRequest, res: NextApiResponse) => {
 
 		/**checking if the product id from client exist in product array of cart colection */
 
-		const productExists = favourite.products.some((pdoc: any) => productId === pdoc.product.toString());
+		const productExists = favourite.products.some((pdoc) => productId === pdoc.product.toString());
 
 		if (productExists) {
 			res.json({ message: 'Product already exist in favourites list' });
@@ -55,7 +54,7 @@ const addToFavourite = async (req: NextApiRequest, res: NextApiResponse) => {
 	}
 };
 
-const removeFromFavourite = async (req: NextApiRequest, res: NextApiResponse) => {
+const removeFromFavourite = async (req, res) => {
 	const session = getSession(req, res);
 	const user =  session?.user
 	const { productId } = req.body;
@@ -72,7 +71,7 @@ const removeFromFavourite = async (req: NextApiRequest, res: NextApiResponse) =>
 	}
 };
 
-const getFavByUser = async (req: NextApiRequest, res: NextApiResponse) => {
+const getFavByUser = async (req, res) => {
 	const session = getSession(req, res);
 	const user =  session?.user
 	try {

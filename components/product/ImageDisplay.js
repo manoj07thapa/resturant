@@ -46,16 +46,12 @@ export default function ImageDisplay({ product }) {
 					</p>
 				</div>
 				<div>
-					{product.discount === 0 ? (
-						<div className="text-medium font-lg text-gray-700 ">
-							Rs. {product.price} <span className="text-xs text-gray-500 mb-0.5 ">/plate</span>
-						</div>
-					) : (
-						<div className="">
-							<DiscountPrice price={product.price} discount={product.discount} />
-							<div className="text-sm text-gray-400  line-through">Rs.{product.price}</div>
-						</div>
-					)}
+					<div className="">
+						<DiscountPrice price={product.price} discount={product.discount} />
+						{product.discount > 0 && (
+							<div className="text-xs text-gray-400  line-through">Rs.{product.price}/plate</div>
+						)}
+					</div>
 				</div>
 			</div>
 			<div className="mt-5 relative">

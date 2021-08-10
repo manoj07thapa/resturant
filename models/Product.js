@@ -1,48 +1,53 @@
 import mongoose from 'mongoose';
 
-const ProductSchema = new mongoose.Schema({
-	category: {
-		type: String,
-		required: [ true, 'Please add a category' ]
-	},
+const ProductSchema = new mongoose.Schema(
+	{
+		category: {
+			type: String,
+			required: [ true, 'Please add a category' ]
+		},
 
-	title: {
-		type: String,
-		required: [ true, 'Please add a title' ],
-		maxlength: [ 40, 'Title cannot be more than 40 characters' ]
+		title: {
+			type: String,
+			required: [ true, 'Please add a title' ],
+			maxlength: [ 40, 'Title cannot be more than 40 characters' ]
+		},
+		subtitle: {
+			type: String
+		},
+		format: {
+			type: Array,
+			required: true
+		},
+		ingredients: {
+			type: Array,
+			required: true
+		},
+		criteria: { type: Array },
+		price: {
+			type: Number,
+			required: true
+		},
+		description: {
+			type: String,
+			required: true,
+			maxlength: [ 1000, 'Description cannot be more than 1000 characters' ]
+		},
+		discount: {
+			type: Number
+		},
+		files: {
+			type: [ {} ],
+			required: true
+		},
+		rating: {
+			type: Number
+		}
 	},
-	subtitle: {
-		type: String
-	},
-	format: {
-		type: Array,
-		required: true
-	},
-	ingredients: {
-		type: Array,
-		required: true
-	},
-	criteria: { type: Array },
-	price: {
-		type: Number,
-		required: true
-	},
-	description: {
-		type: String,
-		required: true,
-		maxlength: [ 1000, 'Description cannot be more than 1000 characters' ]
-	},
-	discount: {
-		type: Number
-	},
-	files: {
-		type: [ {} ],
-		required: true
-	},
-	rating: {
-		type: Number
+	{
+		timestamps: true
 	}
-});
+);
 
 ProductSchema.index(
 	{

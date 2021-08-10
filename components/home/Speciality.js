@@ -24,7 +24,7 @@ const responsive = {
 const Speciality = ({ products }) => {
 	return (
 		<Fragment>
-			<div className=" ">
+			<div className="pb-5 ">
 				<Carousel
 					responsive={responsive}
 					itemClass="image-item"

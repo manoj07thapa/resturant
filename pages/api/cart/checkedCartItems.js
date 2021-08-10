@@ -1,10 +1,9 @@
 import Cart from '../../../models/Cart';
 import dbConnect from '../../../utils/dbConnect';
 import Product from '../../../models/Product';
-import { NextApiRequest, NextApiResponse } from 'next';
 import { withApiAuthRequired, getSession } from '@auth0/nextjs-auth0';
 
-export default withApiAuthRequired(async function checkedCartItems(req: NextApiRequest, res: NextApiResponse) {
+export default withApiAuthRequired(async function checkedCartItems(req, res) {
 	await dbConnect();
 	switch (req.method) {
 		case 'PUT':
@@ -13,7 +12,7 @@ export default withApiAuthRequired(async function checkedCartItems(req: NextApiR
 	}
 });
 
-const editCart = async (req: NextApiRequest, res: NextApiResponse) => {
+const editCart = async (req, res) => {
 	const session = getSession(req, res);
 	const user =  session?.user
 	const { checkedItem } = req.body;

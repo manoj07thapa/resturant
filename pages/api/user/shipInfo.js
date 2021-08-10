@@ -1,11 +1,10 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '../../../utils/dbConnect';
 import ShipInfo from '../../../models/ShipInfo';
 import { shipInfoSchema } from '../../../middlewares/shipInfoSchema';
 import { withApiAuthRequired, getSession } from '@auth0/nextjs-auth0';
 import { validate } from '../../../middlewares/validate';
 
-export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+export const handler = async (req, res) => {
 	dbConnect();
 	switch (req.method) {
 		case 'GET':
@@ -20,7 +19,7 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	}
 };
 
-const getShipInfo = async (req: NextApiRequest, res: NextApiResponse) => {
+const getShipInfo = async (req, res) => {
 	const session = getSession(req, res);
 	const user =  session?.user
 
@@ -33,7 +32,7 @@ const getShipInfo = async (req: NextApiRequest, res: NextApiResponse) => {
 	}
 };
 
-const createShipInfo = async (req: NextApiRequest, res: NextApiResponse) => {
+const createShipInfo = async (req, res) => {
 	try {
 		const { fullname, email, zone, district, phone, city, area, address } = req.body.values;
 
@@ -45,7 +44,7 @@ const createShipInfo = async (req: NextApiRequest, res: NextApiResponse) => {
 	}
 };
 
-const editShipInfo = async (req: NextApiRequest, res: NextApiResponse) => {
+const editShipInfo = async (req, res) => {
 	const session = getSession(req, res);
 	const user =  session?.user
 	

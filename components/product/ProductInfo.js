@@ -7,7 +7,7 @@ import Ingredients from './Ingredients';
 
 export default function ProductInfo({ product }) {
 	console.log(product);
-	const { user, error, isLoading } = useUser();
+	const { user } = useUser();
 	const [ quantity, setQuantity ] = useState(1);
 	const [ cartItems, setCartItems ] = useState([]);
 

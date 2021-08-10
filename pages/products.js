@@ -21,7 +21,7 @@ export default function Products({ products, categories, totalPages, foodType, c
 
 	const [ serverQuery ] = useState(query);
 
-	const { data } = useSwr('/api/products?' + stringify(query), {
+	const { data } = useSwr('/api/products/products?' + stringify(query), {
 		dedupingInterval: 60000,
 		initialData: deepEqual(query, serverQuery) ? { products, totalPages } : undefined
 	});
@@ -49,7 +49,7 @@ export default function Products({ products, categories, totalPages, foodType, c
 
 				<div className="lg:p-12 p-3 mt-3 lg:mt-0 ">
 					<div className=" ">
-						<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-x-7 gap-y-20 ">
+						<div className="grid grid-cols-1 sm:grid-cols-2  xl:grid-cols-4  gap-x-7 gap-y-20 ">
 							{(data.products || [])
 								.map((product) => <ProductCard product={product} key={product._id} />)}
 						</div>

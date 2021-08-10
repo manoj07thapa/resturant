@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { addToFavourite } from '../../utils/addToFavourite';
 import Favourite from '../../components/icons/Favourite';
+import DiscountPrice from '../../components/product/DiscountPrice';
 
 export default function CarouselCard({ product, mutate }) {
 	return (
@@ -34,8 +35,11 @@ export default function CarouselCard({ product, mutate }) {
 
 								<h4 className="font-semibold text-lg leading-tight truncate">{product.title}</h4>
 							</div>
-							<div className="mt-1">
-								Rs. {product.price} <span className="text-gray-500 text-sm">/plate</span>
+							<div className="mt-1 flex justify-between items-baseline">
+								<DiscountPrice price={product.price} discount={product.discount} />
+								{product.discount > 0 && (
+									<span className="text-gray-500 text-xs line-through">Rs.{product.price}/plate</span>
+								)}
 							</div>
 							<div className="mt-2 flex items-center">
 								<span className="text-green-700 flex ">

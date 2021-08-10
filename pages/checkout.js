@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import EditShipInfoModel from '../components/shipping/EditShipInfoModel';
-import { withPageAuthRequired,getSession } from '@auth0/nextjs-auth0';
+import { withPageAuthRequired, getSession } from '@auth0/nextjs-auth0';
 import { GetCart } from '../dbQuery/getCart';
 import { DotLoader } from 'react-spinners';
 import Head from 'next/head';
@@ -12,7 +12,8 @@ import Image from 'next/image';
 import CheckoutIcon from '../public/iconmonstr-checkout-2.svg';
 import CheckoutItemsInfo from '../components/checkout/CheckoutItemsInfo';
 import router from 'next/router';
-import ShipInfo from '../models/ShipInfo'
+import ShipInfo from '../models/ShipInfo';
+
 export default withPageAuthRequired(function Checkout() {
 	const { cart, isLoading, isError } = GetCart();
 	const { shipInfo, shipLoading, shipError, mutate } = GetShipInfo();
@@ -30,7 +31,7 @@ export default withPageAuthRequired(function Checkout() {
 	});
 	let subTotal = 0;
 	checkedCart.map((p) => {
-		subTotal += p.product.price * p.quantity;
+		subTotal += Math.ceil(p.product.price * p.quantity - p.product.discount / 100 * (p.product.price * p.quantity));
 	});
 
 	return (
@@ -53,10 +54,10 @@ export default withPageAuthRequired(function Checkout() {
 								<h3 className="text-lg font-bold uppercase tracking-wider text-gray-700">
 									Make your payment using
 								</h3>
-								<div className="flex space-x-3 mt-2 lg:mt-0">
+								<div className="sm:flex sm:space-x-3 space-y-3 sm:space-y-0 mt-2 lg:mt-0 ">
 									<Khalti products={checkedCart} totalAmt={subTotal} />
-
 									<Esewa />
+
 									<button
 										type="submit"
 										className="px-5 py-2 bg-gray-300 rounded-md shadow text-gray-800 text-medium"
@@ -156,15 +157,12 @@ export default withPageAuthRequired(function Checkout() {
 	);
 });
 
-
 export async function getServerSideProps(ctx) {
 	const session = getSession(ctx.req, ctx.res);
-	const user =  session?.user
-	const ship = await ShipInfo.findOne({email:user.email})
+	const user = session.user;
+	const ship = await ShipInfo.findOne({ email: user.email });
 
-	console.log(ship)
-
-	if(ship === null){
+	if (ship === null) {
 		return {
 			redirect: {
 				destination: '/shippingInfo',

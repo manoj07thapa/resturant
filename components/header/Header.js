@@ -10,15 +10,15 @@ import Search from './Search';
 
 export default function Header() {
 	const [ isOpen, setIsOpen ] = useState(false);
-	const { user, error, isLoading } = useUser();
+	const { user } = useUser();
 
-	if (isLoading)
-		return (
-			<div className="flex text-center justify-center">
-				<DotLoader color="#2a9d8f" />
-			</div>
-		);
-	if (error) return <div>{error.message}</div>;
+	// if (isLoading)
+	// 	return (
+	// 		<div className="flex text-center justify-center mt-72">
+	// 			<DotLoader color="#2a9d8f" />
+	// 		</div>
+	// 	);
+	// if (error) return <div>{error.message}</div>;
 
 	return (
 		<div className=" bg-white border-b border-gray-200 w-full fixed z-10 top-0">

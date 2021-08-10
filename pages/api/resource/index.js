@@ -1,11 +1,10 @@
 import { resourceSchema } from '../../../middlewares/resourceSchema';
-import { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '../../../utils/dbConnect';
 import Resource from '../../../models/Resource';
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { validate } from '../../../middlewares/validate';
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req, res) => {
 	dbConnect();
 	switch (req.method) {
 		case 'GET':
@@ -23,7 +22,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	}
 };
 
-const getResources = async (req: NextApiRequest, res: NextApiResponse) => {
+const getResources = async (req, res) => {
 	try {
 		const resources = await Resource.find({});
 		res.status(200).json(resources);
@@ -32,9 +31,8 @@ const getResources = async (req: NextApiRequest, res: NextApiResponse) => {
 	}
 };
 
-const createResource = async (req: NextApiRequest, res: NextApiResponse) => {
+const createResource = async (req, res) => {
 	const { category, title, subtitle, subtitle1, subtitle2, files, description } = req.body.values;
-	console.log(req.body);
 
 	try {
 		await new Resource({
@@ -52,7 +50,7 @@ const createResource = async (req: NextApiRequest, res: NextApiResponse) => {
 	}
 };
 
-const editResource = async (req: NextApiRequest, res: NextApiResponse) => {};
-const deleteResource = async (req: NextApiRequest, res: NextApiResponse) => {};
+const editResource = async (req, res) => {};
+const deleteResource = async (req, res) => {};
 
 export default withApiAuthRequired(validate(resourceSchema, handler));

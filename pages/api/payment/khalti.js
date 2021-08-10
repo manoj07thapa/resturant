@@ -1,10 +1,9 @@
 import Cart from '../../../models/Cart';
 import dbConnect from '../../../utils/dbConnect';
 import axios from 'axios';
-import { NextApiRequest, NextApiResponse } from 'next';
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 
-export default withApiAuthRequired(async function khalti(req: NextApiRequest, res: NextApiResponse) {
+export default withApiAuthRequired(async function khalti(req, res) {
 	await dbConnect();
 	const { payload } = req.body;
 

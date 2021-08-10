@@ -11,6 +11,7 @@ import CalcTotal from '../components/cart/CalcTotal';
 import Footer from '../components/footer/Footer';
 import router from 'next/router';
 import Favourite from '../components/icons/Favourite';
+import DiscountPrice from '../components/product/DiscountPrice';
 
 export default withPageAuthRequired(function Cart() {
 	const { cart, isLoading, isError, mutate } = GetCart();
@@ -136,17 +137,22 @@ export default withPageAuthRequired(function Cart() {
 
 									<div className="flex justify-between flex-1">
 										<div className="">
-											<h4 className="text-lg font-semibold">Rs.{item.product.price}</h4>
+											<div className="flex justify-between items-center">
+												<DiscountPrice
+													price={item.product.price}
+													discount={item.product.discount}
+												/>
+												{item.product.discount > 0 && (
+													<h4 className="text-xs text-gray-500 line-through">
+														Rs.{item.product.price}/plate
+													</h4>
+												)}
+											</div>
 											<h5 className="text-medium font-medium text-gray-700">
 												{item.product.title}
 											</h5>
-											{item.product.discount && (
-												<p className="text-xs text-gray-700  py-1 font-medium">
-													-{item.product.discount}%
-												</p>
-											)}
 
-											<div className="mt-1 sm:flex sm:justify-between">
+											<div className="mt-2 sm:flex sm:justify-between">
 												<button
 													className="pt-1 flex items-center focus:outline-none"
 													type="submit"

@@ -6,6 +6,7 @@ import { SWRConfig } from 'swr';
 
 function MyApp({ Component, pageProps }) {
 	const { user } = pageProps;
+	const audience = process.env.AUTH0_AUDIENCE;
 
 	return (
 		<UserProvider user={user}>

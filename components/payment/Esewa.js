@@ -10,7 +10,10 @@ export default function Esewa({ totalAmt, products }) {
 			<input value="ee2c3ca1-696b-4cc5-a6be-2c40d929d453" name="pid" type="hidden" />
 			<input value="http://localhost:3000/paymentSuccess" type="hidden" name="su" />
 			<input value="http://localhost:3000/paymentFailed" type="hidden" name="fu" />
-			<button type="submit" className="px-5 py-2 bg-green-600 rounded-md shadow text-white text-medium">
+			<button
+				type="submit"
+				className="px-5 py-2 bg-green-600 rounded-md shadow text-white text-medium w-1/3 sm:w-auto"
+			>
 				Esewa
 			</button>
 		</form>

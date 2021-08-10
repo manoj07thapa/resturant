@@ -1,9 +1,8 @@
 import Cart from '../../../models/Cart';
 import dbConnect from '../../../utils/dbConnect';
-import { NextApiRequest, NextApiResponse } from 'next';
 import { withApiAuthRequired, getSession } from '@auth0/nextjs-auth0';
 
-export default withApiAuthRequired(async function cart(req: NextApiRequest, res: NextApiResponse) {
+export default withApiAuthRequired(async function cart(req, res) {
 
 	await dbConnect();
 	switch (req.method) {
@@ -13,7 +12,7 @@ export default withApiAuthRequired(async function cart(req: NextApiRequest, res:
 	}
 });
 
-const editCartQuantity = async (req: NextApiRequest, res: NextApiResponse) => {
+const editCartQuantity = async (req, res) => {
 	const session = getSession(req, res);
 	const user =  session?.user
 	const { quantity, productId } = req.body;
@@ -33,7 +32,7 @@ const editCartQuantity = async (req: NextApiRequest, res: NextApiResponse) => {
 
 		/**checking if the product id from client exist in product array of cart colection */
 
-		const productExists = cart.products.some((pdoc: any) => productId === pdoc.product.toString());
+		const productExists = cart.products.some((pdoc) => productId === pdoc.product.toString());
 
 		if (productExists) {
 			const cp = await Cart.findOneAndUpdate(

@@ -43,8 +43,6 @@ export async function getServerSideProps(ctx) {
 	const user =  session?.user
 	const ship = await ShipInfo.findOne({email:user.email})
 
-	console.log(ship)
-
 	if(ship !== null){
 		return {
 			redirect: {
