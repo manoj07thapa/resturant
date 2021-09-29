@@ -48,7 +48,7 @@ export default function CreateProduct({ categories }) {
 				>
 					{({ errors, isSubmitting, isValid, values }) => (
 						<Form className="mt-5">
-							{console.log(errors)}
+							7\]=-098yrteaJOKL;'
 							<label htmlFor="title">
 								<span className="block text-sm font-semibold text-gray-500 mb-1">Title</span>
 								<Field
